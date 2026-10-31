@@ -1,0 +1,27 @@
+{
+  "game": {
+    "turn": 7
+  },
+  "meta": {
+    "extraction_ms": 0,
+    "trigger": "turn_begin"
+  },
+  "player": {
+    "civilization": "CIVILIZATION_MACEDON",
+    "leader": "LEADER_JFD_OLYMPIAS",
+    "player_id": 0
+  },
+  "schema_version": 1,
+  "techs": {
+    "current_research": "TECH_POTTERY",
+    "research_progress": 12.5
+  },
+  "yields": {
+    "culture_per_turn": 1.296875,
+    "faith": 0,
+    "faith_per_turn": 0,
+    "gold": 35,
+    "gold_per_turn": 5,
+    "science_per_turn": 2.5
+  }
+}

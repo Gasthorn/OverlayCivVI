@@ -1,0 +1,240 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "civvi-smart-overlay/game_state.schema.json",
+  "title": "game_state",
+  "description": "État du jeu vu par le joueur local, émis par le mod (spec 01). Version 1.",
+  "type": "object",
+  "required": ["schema_version", "meta", "game", "player", "yields", "techs"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "meta": {
+      "type": "object",
+      "required": ["trigger"],
+      "properties": {
+        "trigger": { "enum": ["turn_begin", "turn_end", "game_loaded", "state_changed"] },
+        "extraction_ms": { "type": "number", "minimum": 0 },
+        "game_id": { "type": "string", "minLength": 1 }
+      }
+    },
+    "game": {
+      "type": "object",
+      "required": ["turn"],
+      "properties": {
+        "turn": { "type": "integer", "minimum": 0 },
+        "game_speed": { "$ref": "#/$defs/type_id" },
+        "difficulty": { "$ref": "#/$defs/type_id" },
+        "map_size": { "$ref": "#/$defs/type_id" },
+        "ruleset": { "$ref": "#/$defs/type_id" },
+        "era": { "$ref": "#/$defs/type_id" }
+      }
+    },
+    "player": {
+      "type": "object",
+      "required": ["player_id", "civilization", "leader"],
+      "properties": {
+        "player_id": { "type": "integer", "minimum": 0 },
+        "civilization": { "$ref": "#/$defs/type_id" },
+        "leader": { "$ref": "#/$defs/type_id" },
+        "government": { "$ref": "#/$defs/nullable_type_id" },
+        "religion": { "$ref": "#/$defs/nullable_type_id" },
+        "policies": { "$ref": "#/$defs/type_id_list" }
+      }
+    },
+    "yields": {
+      "type": "object",
+      "required": ["gold", "gold_per_turn", "science_per_turn", "culture_per_turn", "faith", "faith_per_turn"],
+      "properties": {
+        "gold": { "$ref": "#/$defs/nullable_number" },
+        "gold_per_turn": { "$ref": "#/$defs/nullable_number" },
+        "science_per_turn": { "$ref": "#/$defs/nullable_number" },
+        "culture_per_turn": { "$ref": "#/$defs/nullable_number" },
+        "faith": { "$ref": "#/$defs/nullable_number" },
+        "faith_per_turn": { "$ref": "#/$defs/nullable_number" }
+      }
+    },
+    "techs": {
+      "type": "object",
+      "required": ["current_research"],
+      "properties": {
+        "current_research": { "$ref": "#/$defs/nullable_type_id" },
+        "research_progress": { "type": "number", "minimum": 0 },
+        "research_cost": { "type": "number", "minimum": 0 },
+        "researched": { "$ref": "#/$defs/type_id_list" },
+        "boosted": { "$ref": "#/$defs/type_id_list" }
+      }
+    },
+    "civics": {
+      "type": "object",
+      "required": ["current_civic"],
+      "properties": {
+        "current_civic": { "$ref": "#/$defs/nullable_type_id" },
+        "civic_progress": { "type": "number", "minimum": 0 },
+        "civic_cost": { "type": "number", "minimum": 0 },
+        "unlocked": { "$ref": "#/$defs/type_id_list" },
+        "boosted": { "$ref": "#/$defs/type_id_list" }
+      }
+    },
+    "strategic_resources": {
+      "type": "object",
+      "propertyNames": { "$ref": "#/$defs/type_id" },
+      "additionalProperties": { "type": "number", "minimum": 0 }
+    },
+    "cities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["city_id", "name", "hex_x", "hex_y", "population"],
+        "properties": {
+          "city_id": { "type": "integer" },
+          "name": { "type": "string" },
+          "is_capital": { "type": "boolean" },
+          "hex_x": { "type": "integer" },
+          "hex_y": { "type": "integer" },
+          "population": { "type": "integer", "minimum": 0 },
+          "housing": { "type": "number" },
+          "amenities_surplus": { "type": "integer" },
+          "coastal": { "type": "boolean" },
+          "current_production": { "$ref": "#/$defs/nullable_type_id" },
+          "production_progress": { "type": "number", "minimum": 0 },
+          "production_turns_left": { "type": ["number", "null"] },
+          "districts": { "$ref": "#/$defs/type_id_list" },
+          "buildings": { "$ref": "#/$defs/type_id_list" },
+          "district_slots": {
+            "type": "object",
+            "required": ["used", "allowed"],
+            "properties": {
+              "used": { "type": "integer", "minimum": 0 },
+              "allowed": { "type": "integer", "minimum": 0 }
+            }
+          },
+          "plots": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["index", "hex_x", "hex_y", "terrain", "neighbors", "owned"],
+              "properties": {
+                "index": { "type": "integer", "minimum": 0 },
+                "hex_x": { "type": "integer" },
+                "hex_y": { "type": "integer" },
+                "terrain": { "$ref": "#/$defs/type_id" },
+                "feature": { "$ref": "#/$defs/nullable_type_id" },
+                "resource": { "$ref": "#/$defs/nullable_type_id" },
+                "improvement": { "$ref": "#/$defs/nullable_type_id" },
+                "district": { "$ref": "#/$defs/nullable_type_id" },
+                "river": { "type": "boolean" },
+                "owned": { "type": "boolean" },
+                "foreign": { "type": "boolean" },
+                "other_city": { "type": "string" },
+                "neighbors": { "type": "array", "items": { "type": "integer" }, "maxItems": 6 },
+                "sites": {
+                  "type": "object",
+                  "propertyNames": { "$ref": "#/$defs/type_id" },
+                  "additionalProperties": { "type": "number" }
+                }
+              }
+            }
+          },
+          "district_sites": {
+            "type": "object",
+            "propertyNames": { "$ref": "#/$defs/type_id" },
+            "additionalProperties": {
+              "type": "object",
+              "required": ["adjacency", "hex_x", "hex_y"],
+              "properties": {
+                "adjacency": { "type": "number" },
+                "hex_x": { "type": "integer" },
+                "hex_y": { "type": "integer" }
+              }
+            }
+          },
+          "wonder_sites": {
+            "type": "object",
+            "propertyNames": { "$ref": "#/$defs/type_id" },
+            "additionalProperties": { "type": "array", "items": { "type": "integer" } }
+          }
+        }
+      }
+    },
+    "units": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["unit_id", "type", "hex_x", "hex_y"],
+        "properties": {
+          "unit_id": { "type": "integer" },
+          "type": { "$ref": "#/$defs/type_id" },
+          "formation_class": { "$ref": "#/$defs/type_id" },
+          "hex_x": { "type": "integer" },
+          "hex_y": { "type": "integer" },
+          "hp": { "type": "number", "minimum": 0 },
+          "moves_left": { "type": "number", "minimum": 0 }
+        }
+      }
+    },
+    "tiles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["hex_x", "hex_y", "terrain", "visible"],
+        "properties": {
+          "hex_x": { "type": "integer" },
+          "hex_y": { "type": "integer" },
+          "terrain": { "$ref": "#/$defs/type_id" },
+          "feature": { "$ref": "#/$defs/nullable_type_id" },
+          "resource": { "$ref": "#/$defs/nullable_type_id" },
+          "improvement": { "$ref": "#/$defs/nullable_type_id" },
+          "owner": { "enum": ["self", "other", null] },
+          "river": { "type": "boolean" },
+          "visible": { "type": "boolean" }
+        }
+      }
+    },
+    "known_players": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["player_id", "civilization", "leader"],
+        "properties": {
+          "player_id": { "type": "integer", "minimum": 0 },
+          "civilization": { "$ref": "#/$defs/type_id" },
+          "leader": { "$ref": "#/$defs/type_id" },
+          "name": { "type": "string" },
+          "at_war": { "type": "boolean" }
+        }
+      }
+    },
+    "settle_map": {
+      "type": "object",
+      "required": ["map_width", "map_height", "tiles"],
+      "properties": {
+        "map_width": { "type": "integer", "minimum": 1 },
+        "map_height": { "type": "integer", "minimum": 1 },
+        "tiles": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["hex_x", "hex_y", "terrain"],
+            "properties": {
+              "hex_x": { "type": "integer" },
+              "hex_y": { "type": "integer" },
+              "terrain": { "$ref": "#/$defs/type_id" },
+              "feature": { "$ref": "#/$defs/nullable_type_id" },
+              "natural_wonder": { "type": "boolean" },
+              "river": { "type": "boolean" },
+              "lake": { "type": "boolean" },
+              "owner": { "enum": ["self", "other", null] },
+              "city": { "enum": ["self", "other"] },
+              "resource": { "$ref": "#/$defs/type_id" }
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "type_id": { "type": "string", "minLength": 1 },
+    "nullable_type_id": { "type": ["string", "null"], "minLength": 1 },
+    "type_id_list": { "type": "array", "items": { "$ref": "#/$defs/type_id" } },
+    "nullable_number": { "type": ["number", "null"] }
+  }
+}

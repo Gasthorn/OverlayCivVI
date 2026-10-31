@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Mod id="5d8f3a2e-6c41-4b7a-9e0d-2f1c8b7a4e93" version="1">
+  <Properties>
+    <Name>Civ VI Smart Overlay</Name>
+    <Description>Exporte l'état du joueur local (brouillard de guerre respecté) vers Lua.log pour l'overlay externe.</Description>
+    <Authors>Civ VI Smart Overlay</Authors>
+    <AffectsSavedGames>0</AffectsSavedGames>
+    <CompatibleVersions>1.2,2.0</CompatibleVersions>
+  </Properties>
+  <InGameActions>
+    <AddUserInterfaces id="CivOvl_UI">
+      <Properties>
+        <Context>InGame</Context>
+      </Properties>
+      <File>GameStateExporter.xml</File>
+    </AddUserInterfaces>
+    <ImportFiles id="CivOvl_Imports">
+      <File>GameStateExporter.lua</File>
+      <File>CivOvlJson.lua</File>
+    </ImportFiles>
+  </InGameActions>
+  <Files>
+    <File>GameStateExporter.xml</File>
+    <File>GameStateExporter.lua</File>
+    <File>CivOvlJson.lua</File>
+  </Files>
+</Mod>

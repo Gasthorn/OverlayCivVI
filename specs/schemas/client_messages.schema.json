@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "civvi-smart-overlay/client_messages.schema.json",
+  "title": "client_message",
+  "description": "Messages envoyés par l'overlay au service moteur sur le WebSocket (spec 04 §4). Version 1.",
+  "oneOf": [
+    { "$ref": "#/$defs/follow_strategy" }
+  ],
+  "$defs": {
+    "follow_strategy": {
+      "type": "object",
+      "required": ["type", "schema_version", "strategy_id"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "follow_strategy" },
+        "schema_version": { "const": 1 },
+        "strategy_id": { "type": ["string", "null"], "minLength": 1 }
+      }
+    }
+  }
+}

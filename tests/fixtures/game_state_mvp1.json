@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "meta": { "trigger": "turn_begin", "extraction_ms": 12, "game_id": "LEADER_JFD_OLYMPIAS_-1432192869_-1432192870" },
+  "game": {
+    "turn": 15,
+    "era": "ERA_ANCIENT",
+    "game_speed": "GAMESPEED_STANDARD",
+    "difficulty": "DIFFICULTY_PRINCE",
+    "map_size": "MAPSIZE_STANDARD",
+    "ruleset": "RULESET_EXPANSION_2"
+  },
+  "player": {
+    "player_id": 0,
+    "civilization": "CIVILIZATION_MACEDON",
+    "leader": "LEADER_JFD_OLYMPIAS",
+    "government": "GOVERNMENT_CHIEFDOM",
+    "policies": ["POLICY_DISCIPLINE"]
+  },
+  "yields": {
+    "gold": 62,
+    "gold_per_turn": 5,
+    "science_per_turn": 4.5,
+    "culture_per_turn": 3.2,
+    "faith": 4,
+    "faith_per_turn": 1
+  },
+  "techs": {
+    "current_research": "TECH_BRONZE_WORKING",
+    "research_progress": 20,
+    "research_cost": 80,
+    "researched": ["TECH_POTTERY", "TECH_ANIMAL_HUSBANDRY", "TECH_MINING"],
+    "boosted": ["TECH_ARCHERY"]
+  },
+  "civics": {
+    "current_civic": null,
+    "unlocked": ["CIVIC_CODE_OF_LAWS"],
+    "boosted": []
+  },
+  "strategic_resources": {},
+  "cities": [
+    {
+      "city_id": 65536,
+      "name": "Pella",
+      "is_capital": true,
+      "hex_x": 14,
+      "hex_y": 20,
+      "population": 3,
+      "housing": 3.5,
+      "amenities_surplus": 1,
+      "current_production": null,
+      "districts": ["DISTRICT_CITY_CENTER"],
+      "buildings": ["BUILDING_PALACE"]
+    },
+    {
+      "city_id": 131072,
+      "name": "Aigai",
+      "is_capital": false,
+      "hex_x": 19,
+      "hex_y": 22,
+      "population": 1,
+      "housing": 5,
+      "amenities_surplus": 0,
+      "current_production": "UNIT_WARRIOR",
+      "production_progress": 10,
+      "production_turns_left": 4,
+      "districts": ["DISTRICT_CITY_CENTER"],
+      "buildings": []
+    }
+  ],
+  "units": [
+    { "unit_id": 1, "type": "UNIT_WARRIOR", "formation_class": "FORMATION_CLASS_LAND_COMBAT", "hex_x": 15, "hex_y": 21, "hp": 100, "moves_left": 2 },
+    { "unit_id": 2, "type": "UNIT_BUILDER", "formation_class": "FORMATION_CLASS_CIVILIAN", "hex_x": 14, "hex_y": 21, "hp": 100, "moves_left": 2 }
+  ],
+  "tiles": [
+    { "hex_x": 15, "hex_y": 20, "terrain": "TERRAIN_GRASS", "resource": "RESOURCE_HORSES", "owner": "self", "visible": true },
+    { "hex_x": 13, "hex_y": 20, "terrain": "TERRAIN_PLAINS", "resource": "RESOURCE_COTTON", "owner": "self", "visible": true },
+    { "hex_x": 13, "hex_y": 21, "terrain": "TERRAIN_PLAINS", "resource": "RESOURCE_COTTON", "owner": "self", "visible": true },
+    { "hex_x": 20, "hex_y": 22, "terrain": "TERRAIN_GRASS", "resource": "RESOURCE_COTTON", "owner": "other", "visible": true },
+    { "hex_x": 14, "hex_y": 19, "terrain": "TERRAIN_GRASS_HILLS", "resource": "RESOURCE_STONE", "owner": "self", "visible": true },
+    { "hex_x": 18, "hex_y": 22, "terrain": "TERRAIN_GRASS", "feature": "FEATURE_FOREST", "visible": false }
+  ],
+  "known_players": [
+    { "player_id": 2, "civilization": "CIVILIZATION_GREECE", "leader": "LEADER_PERICLES", "at_war": false }
+  ]
+}

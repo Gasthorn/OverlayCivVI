@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "meta": { "trigger": "turn_begin", "extraction_ms": 3 },
+  "game": { "turn": 12 },
+  "player": {
+    "player_id": 0,
+    "civilization": "CIVILIZATION_ROME",
+    "leader": "LEADER_TRAJAN"
+  },
+  "yields": {
+    "gold": 45.2,
+    "gold_per_turn": 8.5,
+    "science_per_turn": 12.1,
+    "culture_per_turn": 9.4,
+    "faith": 10.0,
+    "faith_per_turn": 2.0
+  },
+  "techs": {
+    "current_research": "TECH_HORSEBACK_RIDING",
+    "research_progress": 45
+  }
+}

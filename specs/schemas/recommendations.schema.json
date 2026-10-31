@@ -1,0 +1,205 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "civvi-smart-overlay/recommendations.schema.json",
+  "title": "engine_message",
+  "description": "Messages publiés par le service moteur sur le WebSocket (spec 04). Version 1.",
+  "oneOf": [
+    { "$ref": "#/$defs/status" },
+    { "$ref": "#/$defs/recommendations" }
+  ],
+  "$defs": {
+    "status": {
+      "type": "object",
+      "required": ["type", "schema_version", "state"],
+      "properties": {
+        "type": { "const": "status" },
+        "schema_version": { "const": 1 },
+        "state": { "enum": ["waiting_for_game", "ok", "degraded"] },
+        "turn": { "type": ["integer", "null"], "minimum": 0 },
+        "game_id": { "type": ["string", "null"] },
+        "detail": { "type": ["string", "null"] }
+      }
+    },
+    "recommendations": {
+      "type": "object",
+      "required": ["type", "schema_version", "turn", "generated_at", "snapshot", "milestones", "strategies", "actions"],
+      "properties": {
+        "type": { "const": "recommendations" },
+        "schema_version": { "const": 1 },
+        "game_id": { "type": ["string", "null"] },
+        "turn": { "type": "integer", "minimum": 0 },
+        "generated_at": { "type": "string", "format": "date-time" },
+        "followed_strategy": { "type": ["string", "null"] },
+        "snapshot": {
+          "type": "object",
+          "properties": {
+            "era": { "type": ["string", "null"] },
+            "gold": { "type": ["number", "null"] },
+            "gold_per_turn": { "type": ["number", "null"] },
+            "science_per_turn": { "type": ["number", "null"] },
+            "culture_per_turn": { "type": ["number", "null"] },
+            "faith": { "type": ["number", "null"] }
+          }
+        },
+        "milestones": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["turn", "label", "status"],
+            "properties": {
+              "turn": { "type": "integer", "minimum": 0 },
+              "label": { "type": "string" },
+              "status": { "enum": ["done", "upcoming"] }
+            }
+          }
+        },
+        "strategies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "label", "score"],
+            "properties": {
+              "id": { "type": "string" },
+              "label": { "type": "string" },
+              "icon": { "enum": ["horse", "coin", "flask", "scroll", "shield", "dove"] },
+              "score": { "type": "number", "minimum": 0, "maximum": 1 },
+              "factors": { "type": "array", "items": { "type": "string" } }
+            }
+          }
+        },
+        "settle": {
+          "type": ["object", "null"],
+          "required": ["tiles", "sites"],
+          "properties": {
+            "tiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["x", "y", "hex_x", "hex_y", "terrain", "owned"],
+                "properties": {
+                  "x": { "type": "number" },
+                  "y": { "type": "number" },
+                  "hex_x": { "type": "integer" },
+                  "hex_y": { "type": "integer" },
+                  "terrain": { "type": "string" },
+                  "feature": { "type": ["string", "null"] },
+                  "resource": { "type": ["string", "null"] },
+                  "resource_kind": { "enum": ["luxury", "strategic", "artifact", "bonus", null] },
+                  "district": { "type": ["string", "null"] },
+                  "river": { "type": "boolean" },
+                  "owned": { "type": "boolean" },
+                  "foreign": { "type": "boolean" },
+                  "natural_wonder": { "type": "boolean" }
+                }
+              }
+            },
+            "sites": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["rank", "hex_x", "hex_y", "score", "reasons"],
+                "properties": {
+                  "rank": { "type": "integer", "minimum": 1 },
+                  "hex_x": { "type": "integer" },
+                  "hex_y": { "type": "integer" },
+                  "score": { "type": "number" },
+                  "reasons": { "type": "array", "items": { "type": "string" } },
+                  "nearest_city": { "type": ["string", "null"] },
+                  "distance": { "type": ["integer", "null"] }
+                }
+              }
+            }
+          }
+        },
+        "cities": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["city_id", "name", "tiles", "layout"],
+            "properties": {
+              "city_id": { "type": "integer" },
+              "name": { "type": "string" },
+              "population": { "type": "integer" },
+              "slots": {
+                "type": ["object", "null"],
+                "properties": {
+                  "used": { "type": "integer" },
+                  "allowed": { "type": "integer" }
+                }
+              },
+              "tiles": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["x", "y", "hex_x", "hex_y", "terrain", "owned"],
+                  "properties": {
+                    "x": { "type": "number" },
+                    "y": { "type": "number" },
+                    "hex_x": { "type": "integer" },
+                    "hex_y": { "type": "integer" },
+                    "terrain": { "type": "string" },
+                    "feature": { "type": ["string", "null"] },
+                    "resource": { "type": ["string", "null"] },
+                    "resource_kind": { "enum": ["luxury", "strategic", "artifact", "bonus", null] },
+                    "improvement": { "type": ["string", "null"] },
+                    "district": { "type": ["string", "null"] },
+                    "district_label": { "type": ["string", "null"] },
+                    "river": { "type": "boolean" },
+                    "owned": { "type": "boolean" },
+                    "foreign": { "type": "boolean" },
+                    "other_city": { "type": ["string", "null"] }
+                  }
+                }
+              },
+              "layout": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["district", "kind", "label", "hex_x", "hex_y", "adjacency", "status"],
+                  "properties": {
+                    "district": { "type": "string" },
+                    "kind": { "type": "string" },
+                    "label": { "type": "string" },
+                    "hex_x": { "type": "integer" },
+                    "hex_y": { "type": "integer" },
+                    "adjacency": { "type": "number" },
+                    "status": { "enum": ["now", "later"] },
+                    "uses_slot": { "type": "boolean" },
+                    "focus": { "type": "boolean" },
+                    "unlocked": { "type": "boolean" },
+                    "requires": { "type": ["string", "null"] },
+                    "wonder": { "type": "boolean" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "actions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "category", "title", "reason", "priority", "source"],
+            "properties": {
+              "id": { "type": "string" },
+              "category": { "enum": ["research", "civic", "production", "unit", "policy", "other"] },
+              "title": { "type": "string" },
+              "reason": { "type": "string" },
+              "priority": { "type": "integer", "minimum": 0, "maximum": 100 },
+              "source": { "enum": ["rules", "llm"] },
+              "strategy": { "type": "string" },
+              "target": {
+                "type": "object",
+                "properties": {
+                  "type": { "type": ["string", "null"] },
+                  "city_id": { "type": ["integer", "null"] },
+                  "unit_id": { "type": ["integer", "null"] }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

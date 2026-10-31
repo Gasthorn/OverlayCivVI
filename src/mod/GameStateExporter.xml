@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Contexte UI invisible : sert uniquement à charger GameStateExporter.lua (spec 01 §2.1). -->
+<Context>
+</Context>

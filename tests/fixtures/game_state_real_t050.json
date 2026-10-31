@@ -1,0 +1,1296 @@
+{
+ "cities": [
+  {
+   "amenities_surplus": 1,
+   "buildings": [
+    "BUILDING_MONUMENT",
+    "BUILDING_PALACE",
+    "BUILDING_GRANARY",
+    "BUILDING_LIBRARY",
+    "BUILDING_GOV_CONQUEST"
+   ],
+   "city_id": 65536,
+   "current_production": "DISTRICT_AQUEDUCT",
+   "districts": [
+    "DISTRICT_CITY_CENTER",
+    "DISTRICT_GOVERNMENT",
+    "DISTRICT_CAMPUS"
+   ],
+   "hex_x": 18,
+   "hex_y": 23,
+   "housing": 11,
+   "is_capital": true,
+   "name": "Mbanza Kongo",
+   "population": 7,
+   "production_progress": 0,
+   "production_turns_left": 2
+  },
+  {
+   "amenities_surplus": 1,
+   "buildings": [
+    "BUILDING_GRANARY",
+    "BUILDING_LIBRARY",
+    "BUILDING_WORKSHOP"
+   ],
+   "city_id": 131073,
+   "current_production": "DISTRICT_AQUEDUCT",
+   "districts": [
+    "DISTRICT_CITY_CENTER",
+    "DISTRICT_CAMPUS",
+    "DISTRICT_INDUSTRIAL_ZONE"
+   ],
+   "hex_x": 16,
+   "hex_y": 26,
+   "housing": 10,
+   "is_capital": false,
+   "name": "Mbanza Mbata",
+   "population": 6,
+   "production_progress": 0,
+   "production_turns_left": 2
+  },
+  {
+   "amenities_surplus": 0,
+   "buildings": [
+    "BUILDING_GRANARY",
+    "BUILDING_LIBRARY",
+    "BUILDING_MARKET"
+   ],
+   "city_id": 196610,
+   "current_production": "BUILDING_HANGING_GARDENS",
+   "districts": [
+    "DISTRICT_CITY_CENTER",
+    "DISTRICT_CAMPUS",
+    "DISTRICT_COMMERCIAL_HUB",
+    "DISTRICT_WONDER"
+   ],
+   "hex_x": 22,
+   "hex_y": 23,
+   "housing": 10,
+   "is_capital": false,
+   "name": "Mpinda",
+   "population": 7,
+   "production_progress": 49,
+   "production_turns_left": 4
+  },
+  {
+   "amenities_surplus": 0,
+   "buildings": [
+    "BUILDING_GRANARY"
+   ],
+   "city_id": 262147,
+   "current_production": "DISTRICT_COMMERCIAL_HUB",
+   "districts": [
+    "DISTRICT_CITY_CENTER"
+   ],
+   "hex_x": 19,
+   "hex_y": 28,
+   "housing": 7,
+   "is_capital": false,
+   "name": "Kwango",
+   "population": 3,
+   "production_progress": 51,
+   "production_turns_left": 1
+  },
+  {
+   "amenities_surplus": 0,
+   "buildings": [
+    "BUILDING_GRANARY"
+   ],
+   "city_id": 327684,
+   "current_production": "DISTRICT_AQUEDUCT",
+   "districts": [
+    "DISTRICT_CITY_CENTER"
+   ],
+   "hex_x": 18,
+   "hex_y": 19,
+   "housing": 7,
+   "is_capital": false,
+   "name": "Mbanza Mpangu",
+   "population": 3,
+   "production_progress": 16,
+   "production_turns_left": 4
+  },
+  {
+   "amenities_surplus": 0,
+   "buildings": [
+    "BUILDING_GRANARY"
+   ],
+   "city_id": 393221,
+   "current_production": "DISTRICT_INDUSTRIAL_ZONE",
+   "districts": [
+    "DISTRICT_CITY_CENTER"
+   ],
+   "hex_x": 13,
+   "hex_y": 28,
+   "housing": 7,
+   "is_capital": false,
+   "name": "Bukavu",
+   "population": 2,
+   "production_progress": 14,
+   "production_turns_left": 7
+  }
+ ],
+ "civics": {
+  "boosted": [
+   "CIVIC_MILITARY_TRADITION",
+   "CIVIC_MYSTICISM",
+   "CIVIC_RECORDED_HISTORY"
+  ],
+  "civic_cost": 180,
+  "civic_progress": 40.390625,
+  "current_civic": "CIVIC_FEUDALISM",
+  "unlocked": [
+   "CIVIC_CODE_OF_LAWS",
+   "CIVIC_CRAFTSMANSHIP",
+   "CIVIC_FOREIGN_TRADE",
+   "CIVIC_STATE_WORKFORCE",
+   "CIVIC_EARLY_EMPIRE",
+   "CIVIC_GAMES_RECREATION",
+   "CIVIC_POLITICAL_PHILOSOPHY",
+   "CIVIC_DEFENSIVE_TACTICS"
+  ]
+ },
+ "game": {
+  "difficulty": "DIFFICULTY_PRINCE",
+  "era": "ERA_CLASSICAL",
+  "game_speed": "GAMESPEED_ONLINE",
+  "map_size": "MAPSIZE_SMALL",
+  "ruleset": "RULESET_EXPANSION_2",
+  "turn": 50
+ },
+ "known_players": [
+  {
+   "at_war": false,
+   "civilization": "CIVILIZATION_SPAIN",
+   "leader": "LEADER_PHILIP_II",
+   "player_id": 1
+  },
+  {
+   "at_war": false,
+   "civilization": "CIVILIZATION_BABYLON_STK",
+   "leader": "LEADER_HAMMURABI",
+   "player_id": 4
+  }
+ ],
+ "meta": {
+  "extraction_ms": 0,
+  "game_id": "LEADER_MVEMBA_-1034988241_-1034988242",
+  "trigger": "turn_begin"
+ },
+ "player": {
+  "civilization": "CIVILIZATION_KONGO",
+  "government": "GOVERNMENT_CLASSICAL_REPUBLIC",
+  "leader": "LEADER_MVEMBA",
+  "player_id": 0,
+  "policies": [
+   "POLICY_INSULAE",
+   "POLICY_URBAN_PLANNING",
+   "POLICY_DIPLOMATIC_LEAGUE",
+   "POLICY_CONSCRIPTION"
+  ]
+ },
+ "schema_version": 1,
+ "strategic_resources": {
+  "RESOURCE_HORSES": 40,
+  "RESOURCE_IRON": 34
+ },
+ "techs": {
+  "boosted": [
+   "TECH_MASONRY",
+   "TECH_IRON_WORKING",
+   "TECH_CONSTRUCTION",
+   "TECH_EDUCATION",
+   "TECH_CASTLES"
+  ],
+  "current_research": "TECH_EDUCATION",
+  "research_cost": 265,
+  "research_progress": 105,
+  "researched": [
+   "TECH_POTTERY",
+   "TECH_ANIMAL_HUSBANDRY",
+   "TECH_MINING",
+   "TECH_SAILING",
+   "TECH_ASTROLOGY",
+   "TECH_IRRIGATION",
+   "TECH_ARCHERY",
+   "TECH_WRITING",
+   "TECH_BRONZE_WORKING",
+   "TECH_THE_WHEEL",
+   "TECH_CELESTIAL_NAVIGATION",
+   "TECH_CURRENCY",
+   "TECH_HORSEBACK_RIDING",
+   "TECH_MATHEMATICS",
+   "TECH_ENGINEERING",
+   "TECH_APPRENTICESHIP"
+  ]
+ },
+ "tiles": [
+  {
+   "feature": "FEATURE_FLOODPLAINS_GRASSLAND",
+   "hex_x": 15,
+   "hex_y": 23,
+   "terrain": "TERRAIN_GRASS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_JUNGLE",
+   "hex_x": 16,
+   "hex_y": 21,
+   "terrain": "TERRAIN_PLAINS_HILLS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_FLOODPLAINS_GRASSLAND",
+   "hex_x": 16,
+   "hex_y": 22,
+   "resource": "RESOURCE_RICE",
+   "terrain": "TERRAIN_GRASS",
+   "visible": true
+  },
+  {
+   "hex_x": 16,
+   "hex_y": 23,
+   "improvement": "IMPROVEMENT_MINE",
+   "owner": "self",
+   "terrain": "TERRAIN_GRASS_HILLS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_JUNGLE",
+   "hex_x": 16,
+   "hex_y": 24,
+   "terrain": "TERRAIN_PLAINS",
+   "visible": true
+  },
+  {
+   "hex_x": 16,
+   "hex_y": 25,
+   "owner": "self",
+   "terrain": "TERRAIN_GRASS_HILLS",
+   "visible": true
+  },
+  {
+   "hex_x": 17,
+   "hex_y": 20,
+   "terrain": "TERRAIN_PLAINS",
+   "visible": true
+  },
+  {
+   "hex_x": 17,
+   "hex_y": 21,
+   "improvement": "IMPROVEMENT_MINE",
+   "owner": "self",
+   "resource": "RESOURCE_IRON",
+   "terrain": "TERRAIN_GRASS_HILLS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_FLOODPLAINS_GRASSLAND",
+   "hex_x": 17,
+   "hex_y": 22,
+   "terrain": "TERRAIN_GRASS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_JUNGLE",
+   "hex_x": 17,
+   "hex_y": 23,
+   "improvement": "IMPROVEMENT_PLANTATION",
+   "owner": "self",
+   "resource": "RESOURCE_BANANAS",
+   "terrain": "TERRAIN_PLAINS_HILLS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_FOREST",
+   "hex_x": 17,
+   "hex_y": 24,
+   "terrain": "TERRAIN_PLAINS",
+   "visible": true
+  },
+  {
+   "hex_x": 17,
+   "hex_y": 25,
+   "owner": "self",
+   "terrain": "TERRAIN_GRASS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_JUNGLE",
+   "hex_x": 17,
+   "hex_y": 26,
+   "improvement": "IMPROVEMENT_PLANTATION",
+   "owner": "self",
+   "resource": "RESOURCE_BANANAS",
+   "terrain": "TERRAIN_PLAINS",
+   "visible": true
+  },
+  {
+   "hex_x": 18,
+   "hex_y": 20,
+   "owner": "self",
+   "terrain": "TERRAIN_PLAINS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_MARSH",
+   "hex_x": 18,
+   "hex_y": 21,
+   "owner": "self",
+   "terrain": "TERRAIN_GRASS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_FOREST",
+   "hex_x": 18,
+   "hex_y": 22,
+   "owner": "self",
+   "terrain": "TERRAIN_GRASS_HILLS",
+   "visible": true
+  },
+  {
+   "hex_x": 18,
+   "hex_y": 23,
+   "owner": "self",
+   "terrain": "TERRAIN_GRASS",
+   "visible": true
+  },
+  {
+   "hex_x": 18,
+   "hex_y": 24,
+   "improvement": "IMPROVEMENT_PASTURE",
+   "owner": "self",
+   "resource": "RESOURCE_HORSES",
+   "terrain": "TERRAIN_GRASS",
+   "visible": true
+  },
+  {
+   "hex_x": 18,
+   "hex_y": 25,
+   "terrain": "TERRAIN_PLAINS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_JUNGLE",
+   "hex_x": 18,
+   "hex_y": 26,
+   "terrain": "TERRAIN_PLAINS",
+   "visible": true
+  },
+  {
+   "hex_x": 19,
+   "hex_y": 20,
+   "owner": "self",
+   "terrain": "TERRAIN_COAST",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_FOREST",
+   "hex_x": 19,
+   "hex_y": 21,
+   "terrain": "TERRAIN_PLAINS",
+   "visible": true
+  },
+  {
+   "hex_x": 19,
+   "hex_y": 22,
+   "owner": "self",
+   "terrain": "TERRAIN_PLAINS_HILLS",
+   "visible": true
+  },
+  {
+   "hex_x": 19,
+   "hex_y": 23,
+   "owner": "self",
+   "terrain": "TERRAIN_PLAINS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_JUNGLE",
+   "hex_x": 19,
+   "hex_y": 24,
+   "owner": "self",
+   "terrain": "TERRAIN_PLAINS_HILLS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_FOREST",
+   "hex_x": 19,
+   "hex_y": 25,
+   "improvement": "IMPROVEMENT_PLANTATION",
+   "owner": "self",
+   "resource": "RESOURCE_DYES",
+   "terrain": "TERRAIN_GRASS",
+   "visible": true
+  },
+  {
+   "hex_x": 19,
+   "hex_y": 26,
+   "terrain": "TERRAIN_GRASS_MOUNTAIN",
+   "visible": true
+  },
+  {
+   "hex_x": 20,
+   "hex_y": 20,
+   "terrain": "TERRAIN_COAST",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_JUNGLE",
+   "hex_x": 20,
+   "hex_y": 21,
+   "terrain": "TERRAIN_PLAINS_HILLS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_FOREST",
+   "hex_x": 20,
+   "hex_y": 22,
+   "owner": "self",
+   "terrain": "TERRAIN_GRASS_HILLS",
+   "visible": true
+  },
+  {
+   "hex_x": 20,
+   "hex_y": 23,
+   "owner": "self",
+   "terrain": "TERRAIN_PLAINS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_FOREST",
+   "hex_x": 20,
+   "hex_y": 24,
+   "owner": "self",
+   "terrain": "TERRAIN_GRASS_HILLS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_JUNGLE",
+   "hex_x": 20,
+   "hex_y": 25,
+   "resource": "RESOURCE_DYES",
+   "terrain": "TERRAIN_PLAINS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_FOREST",
+   "hex_x": 20,
+   "hex_y": 26,
+   "owner": "self",
+   "terrain": "TERRAIN_GRASS_HILLS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_MARSH",
+   "hex_x": 21,
+   "hex_y": 22,
+   "terrain": "TERRAIN_GRASS",
+   "visible": true
+  },
+  {
+   "hex_x": 21,
+   "hex_y": 23,
+   "owner": "self",
+   "terrain": "TERRAIN_GRASS_HILLS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_JUNGLE",
+   "hex_x": 21,
+   "hex_y": 24,
+   "terrain": "TERRAIN_PLAINS",
+   "visible": true
+  },
+  {
+   "hex_x": 13,
+   "hex_y": 25,
+   "resource": "RESOURCE_FISH",
+   "terrain": "TERRAIN_COAST",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_JUNGLE",
+   "hex_x": 13,
+   "hex_y": 26,
+   "terrain": "TERRAIN_PLAINS_HILLS",
+   "visible": true
+  },
+  {
+   "hex_x": 13,
+   "hex_y": 27,
+   "improvement": "IMPROVEMENT_PASTURE",
+   "owner": "self",
+   "resource": "RESOURCE_HORSES",
+   "terrain": "TERRAIN_PLAINS",
+   "visible": true
+  },
+  {
+   "hex_x": 14,
+   "hex_y": 23,
+   "terrain": "TERRAIN_COAST",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_JUNGLE",
+   "hex_x": 14,
+   "hex_y": 24,
+   "terrain": "TERRAIN_PLAINS_HILLS",
+   "visible": true
+  },
+  {
+   "hex_x": 14,
+   "hex_y": 25,
+   "terrain": "TERRAIN_PLAINS_HILLS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_FOREST",
+   "hex_x": 14,
+   "hex_y": 26,
+   "owner": "self",
+   "terrain": "TERRAIN_PLAINS",
+   "visible": true
+  },
+  {
+   "hex_x": 14,
+   "hex_y": 27,
+   "terrain": "TERRAIN_PLAINS_HILLS",
+   "visible": true
+  },
+  {
+   "hex_x": 14,
+   "hex_y": 28,
+   "improvement": "IMPROVEMENT_MINE",
+   "owner": "self",
+   "terrain": "TERRAIN_PLAINS_HILLS",
+   "visible": true
+  },
+  {
+   "hex_x": 14,
+   "hex_y": 29,
+   "terrain": "TERRAIN_PLAINS_HILLS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_JUNGLE",
+   "hex_x": 15,
+   "hex_y": 27,
+   "owner": "self",
+   "terrain": "TERRAIN_PLAINS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_JUNGLE",
+   "hex_x": 15,
+   "hex_y": 28,
+   "owner": "self",
+   "terrain": "TERRAIN_PLAINS_HILLS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_FOREST",
+   "hex_x": 15,
+   "hex_y": 29,
+   "resource": "RESOURCE_DYES",
+   "terrain": "TERRAIN_PLAINS_HILLS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_FOREST",
+   "hex_x": 16,
+   "hex_y": 27,
+   "owner": "self",
+   "terrain": "TERRAIN_PLAINS",
+   "visible": true
+  },
+  {
+   "hex_x": 16,
+   "hex_y": 28,
+   "owner": "self",
+   "terrain": "TERRAIN_PLAINS_HILLS",
+   "visible": true
+  },
+  {
+   "hex_x": 16,
+   "hex_y": 29,
+   "terrain": "TERRAIN_PLAINS_HILLS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_JUNGLE",
+   "hex_x": 17,
+   "hex_y": 27,
+   "terrain": "TERRAIN_PLAINS_HILLS",
+   "visible": true
+  },
+  {
+   "hex_x": 17,
+   "hex_y": 28,
+   "terrain": "TERRAIN_PLAINS_MOUNTAIN",
+   "visible": true
+  },
+  {
+   "hex_x": 17,
+   "hex_y": 29,
+   "terrain": "TERRAIN_PLAINS_HILLS",
+   "visible": true
+  },
+  {
+   "hex_x": 18,
+   "hex_y": 27,
+   "improvement": "IMPROVEMENT_PASTURE",
+   "owner": "self",
+   "resource": "RESOURCE_SHEEP",
+   "terrain": "TERRAIN_PLAINS_HILLS",
+   "visible": true
+  },
+  {
+   "hex_x": 18,
+   "hex_y": 28,
+   "owner": "self",
+   "terrain": "TERRAIN_GRASS_MOUNTAIN",
+   "visible": true
+  },
+  {
+   "hex_x": 22,
+   "hex_y": 20,
+   "terrain": "TERRAIN_PLAINS",
+   "visible": false
+  },
+  {
+   "hex_x": 22,
+   "hex_y": 21,
+   "terrain": "TERRAIN_COAST",
+   "visible": true
+  },
+  {
+   "hex_x": 22,
+   "hex_y": 22,
+   "owner": "self",
+   "terrain": "TERRAIN_GRASS",
+   "visible": true
+  },
+  {
+   "hex_x": 22,
+   "hex_y": 23,
+   "owner": "self",
+   "terrain": "TERRAIN_PLAINS",
+   "visible": true
+  },
+  {
+   "hex_x": 22,
+   "hex_y": 24,
+   "owner": "self",
+   "terrain": "TERRAIN_GRASS",
+   "visible": true
+  },
+  {
+   "hex_x": 22,
+   "hex_y": 25,
+   "improvement": "IMPROVEMENT_PASTURE",
+   "owner": "self",
+   "resource": "RESOURCE_CATTLE",
+   "terrain": "TERRAIN_GRASS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_VOLCANO",
+   "hex_x": 22,
+   "hex_y": 26,
+   "terrain": "TERRAIN_GRASS_MOUNTAIN",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_JUNGLE",
+   "hex_x": 23,
+   "hex_y": 20,
+   "terrain": "TERRAIN_PLAINS_HILLS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_IKKIL",
+   "hex_x": 23,
+   "hex_y": 21,
+   "owner": "self",
+   "terrain": "TERRAIN_GRASS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_JUNGLE",
+   "hex_x": 23,
+   "hex_y": 22,
+   "owner": "self",
+   "terrain": "TERRAIN_PLAINS_HILLS",
+   "visible": true
+  },
+  {
+   "hex_x": 23,
+   "hex_y": 23,
+   "owner": "self",
+   "terrain": "TERRAIN_GRASS_HILLS",
+   "visible": true
+  },
+  {
+   "hex_x": 23,
+   "hex_y": 24,
+   "improvement": "IMPROVEMENT_PASTURE",
+   "owner": "self",
+   "resource": "RESOURCE_CATTLE",
+   "terrain": "TERRAIN_GRASS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_JUNGLE",
+   "hex_x": 23,
+   "hex_y": 25,
+   "terrain": "TERRAIN_PLAINS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_JUNGLE",
+   "hex_x": 23,
+   "hex_y": 26,
+   "terrain": "TERRAIN_PLAINS_HILLS",
+   "visible": true
+  },
+  {
+   "hex_x": 24,
+   "hex_y": 20,
+   "resource": "RESOURCE_HONEY",
+   "terrain": "TERRAIN_PLAINS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_JUNGLE",
+   "hex_x": 24,
+   "hex_y": 21,
+   "terrain": "TERRAIN_PLAINS_HILLS",
+   "visible": true
+  },
+  {
+   "hex_x": 24,
+   "hex_y": 22,
+   "improvement": "IMPROVEMENT_QUARRY",
+   "owner": "self",
+   "resource": "RESOURCE_STONE",
+   "terrain": "TERRAIN_GRASS_HILLS",
+   "visible": true
+  },
+  {
+   "hex_x": 24,
+   "hex_y": 23,
+   "improvement": "IMPROVEMENT_QUARRY",
+   "owner": "self",
+   "resource": "RESOURCE_STONE",
+   "terrain": "TERRAIN_GRASS_HILLS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_JUNGLE",
+   "hex_x": 24,
+   "hex_y": 24,
+   "terrain": "TERRAIN_PLAINS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_FOREST",
+   "hex_x": 24,
+   "hex_y": 25,
+   "terrain": "TERRAIN_PLAINS_HILLS",
+   "visible": true
+  },
+  {
+   "hex_x": 24,
+   "hex_y": 26,
+   "resource": "RESOURCE_WHEAT",
+   "terrain": "TERRAIN_PLAINS",
+   "visible": false
+  },
+  {
+   "feature": "FEATURE_JUNGLE",
+   "hex_x": 25,
+   "hex_y": 22,
+   "terrain": "TERRAIN_PLAINS_HILLS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_JUNGLE",
+   "hex_x": 25,
+   "hex_y": 23,
+   "terrain": "TERRAIN_PLAINS_HILLS",
+   "visible": true
+  },
+  {
+   "hex_x": 25,
+   "hex_y": 24,
+   "improvement": "IMPROVEMENT_MINE",
+   "owner": "self",
+   "resource": "RESOURCE_JADE",
+   "terrain": "TERRAIN_GRASS",
+   "visible": true
+  },
+  {
+   "hex_x": 17,
+   "hex_y": 30,
+   "resource": "RESOURCE_IRON",
+   "terrain": "TERRAIN_PLAINS_HILLS",
+   "visible": false
+  },
+  {
+   "hex_x": 17,
+   "hex_y": 31,
+   "terrain": "TERRAIN_PLAINS_HILLS",
+   "visible": false
+  },
+  {
+   "hex_x": 18,
+   "hex_y": 30,
+   "terrain": "TERRAIN_GRASS_MOUNTAIN",
+   "visible": true
+  },
+  {
+   "hex_x": 18,
+   "hex_y": 31,
+   "terrain": "TERRAIN_GRASS_HILLS",
+   "visible": false
+  },
+  {
+   "hex_x": 19,
+   "hex_y": 30,
+   "terrain": "TERRAIN_GRASS_HILLS",
+   "visible": true
+  },
+  {
+   "hex_x": 19,
+   "hex_y": 31,
+   "resource": "RESOURCE_WHEAT",
+   "terrain": "TERRAIN_PLAINS",
+   "visible": false
+  },
+  {
+   "feature": "FEATURE_FOREST",
+   "hex_x": 20,
+   "hex_y": 27,
+   "terrain": "TERRAIN_PLAINS_HILLS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_FOREST",
+   "hex_x": 20,
+   "hex_y": 28,
+   "owner": "self",
+   "terrain": "TERRAIN_PLAINS",
+   "visible": true
+  },
+  {
+   "hex_x": 20,
+   "hex_y": 29,
+   "terrain": "TERRAIN_PLAINS_MOUNTAIN",
+   "visible": true
+  },
+  {
+   "hex_x": 20,
+   "hex_y": 30,
+   "terrain": "TERRAIN_PLAINS_MOUNTAIN",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_FOREST",
+   "hex_x": 20,
+   "hex_y": 31,
+   "terrain": "TERRAIN_PLAINS",
+   "visible": false
+  },
+  {
+   "hex_x": 21,
+   "hex_y": 27,
+   "terrain": "TERRAIN_PLAINS_HILLS",
+   "visible": false
+  },
+  {
+   "hex_x": 21,
+   "hex_y": 28,
+   "terrain": "TERRAIN_PLAINS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_FOREST",
+   "hex_x": 21,
+   "hex_y": 29,
+   "terrain": "TERRAIN_PLAINS",
+   "visible": false
+  },
+  {
+   "hex_x": 21,
+   "hex_y": 30,
+   "resource": "RESOURCE_MARBLE",
+   "terrain": "TERRAIN_PLAINS_HILLS",
+   "visible": false
+  },
+  {
+   "feature": "FEATURE_JUNGLE",
+   "hex_x": 22,
+   "hex_y": 28,
+   "terrain": "TERRAIN_PLAINS",
+   "visible": false
+  },
+  {
+   "feature": "FEATURE_JUNGLE",
+   "hex_x": 15,
+   "hex_y": 19,
+   "terrain": "TERRAIN_PLAINS",
+   "visible": false
+  },
+  {
+   "hex_x": 16,
+   "hex_y": 17,
+   "terrain": "TERRAIN_GRASS_HILLS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_FOREST",
+   "hex_x": 16,
+   "hex_y": 18,
+   "resource": "RESOURCE_DEER",
+   "terrain": "TERRAIN_GRASS",
+   "visible": true
+  },
+  {
+   "hex_x": 16,
+   "hex_y": 19,
+   "resource": "RESOURCE_JADE",
+   "terrain": "TERRAIN_GRASS",
+   "visible": true
+  },
+  {
+   "hex_x": 17,
+   "hex_y": 16,
+   "resource": "RESOURCE_RICE",
+   "terrain": "TERRAIN_GRASS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_FOREST",
+   "hex_x": 17,
+   "hex_y": 17,
+   "terrain": "TERRAIN_GRASS_HILLS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_JUNGLE",
+   "hex_x": 17,
+   "hex_y": 18,
+   "terrain": "TERRAIN_PLAINS_HILLS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_JUNGLE",
+   "hex_x": 17,
+   "hex_y": 19,
+   "owner": "self",
+   "terrain": "TERRAIN_PLAINS_HILLS",
+   "visible": true
+  },
+  {
+   "hex_x": 18,
+   "hex_y": 16,
+   "terrain": "TERRAIN_GRASS_HILLS",
+   "visible": true
+  },
+  {
+   "hex_x": 18,
+   "hex_y": 17,
+   "terrain": "TERRAIN_GRASS_HILLS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_JUNGLE",
+   "hex_x": 18,
+   "hex_y": 18,
+   "owner": "self",
+   "terrain": "TERRAIN_PLAINS_HILLS",
+   "visible": true
+  },
+  {
+   "hex_x": 18,
+   "hex_y": 19,
+   "owner": "self",
+   "terrain": "TERRAIN_PLAINS_HILLS",
+   "visible": true
+  },
+  {
+   "hex_x": 19,
+   "hex_y": 16,
+   "terrain": "TERRAIN_GRASS_HILLS",
+   "visible": true
+  },
+  {
+   "hex_x": 19,
+   "hex_y": 17,
+   "terrain": "TERRAIN_GRASS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_FOREST",
+   "hex_x": 19,
+   "hex_y": 18,
+   "owner": "self",
+   "resource": "RESOURCE_DYES",
+   "terrain": "TERRAIN_GRASS_HILLS",
+   "visible": true
+  },
+  {
+   "hex_x": 19,
+   "hex_y": 19,
+   "owner": "self",
+   "terrain": "TERRAIN_COAST",
+   "visible": true
+  },
+  {
+   "hex_x": 20,
+   "hex_y": 16,
+   "resource": "RESOURCE_STONE",
+   "terrain": "TERRAIN_GRASS_HILLS",
+   "visible": false
+  },
+  {
+   "hex_x": 20,
+   "hex_y": 17,
+   "resource": "RESOURCE_CATTLE",
+   "terrain": "TERRAIN_GRASS",
+   "visible": false
+  },
+  {
+   "hex_x": 20,
+   "hex_y": 18,
+   "terrain": "TERRAIN_GRASS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_FOREST",
+   "hex_x": 20,
+   "hex_y": 19,
+   "terrain": "TERRAIN_PLAINS_HILLS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_JUNGLE",
+   "hex_x": 21,
+   "hex_y": 18,
+   "terrain": "TERRAIN_PLAINS",
+   "visible": false
+  },
+  {
+   "hex_x": 10,
+   "hex_y": 27,
+   "terrain": "TERRAIN_COAST",
+   "visible": false
+  },
+  {
+   "hex_x": 10,
+   "hex_y": 28,
+   "terrain": "TERRAIN_PLAINS",
+   "visible": false
+  },
+  {
+   "hex_x": 10,
+   "hex_y": 29,
+   "terrain": "TERRAIN_PLAINS_HILLS",
+   "visible": false
+  },
+  {
+   "hex_x": 11,
+   "hex_y": 25,
+   "terrain": "TERRAIN_COAST",
+   "visible": false
+  },
+  {
+   "hex_x": 11,
+   "hex_y": 26,
+   "terrain": "TERRAIN_COAST",
+   "visible": false
+  },
+  {
+   "feature": "FEATURE_FOREST",
+   "hex_x": 11,
+   "hex_y": 27,
+   "terrain": "TERRAIN_PLAINS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_JUNGLE",
+   "hex_x": 11,
+   "hex_y": 28,
+   "terrain": "TERRAIN_PLAINS_HILLS",
+   "visible": true
+  },
+  {
+   "hex_x": 11,
+   "hex_y": 29,
+   "resource": "RESOURCE_WHEAT",
+   "terrain": "TERRAIN_PLAINS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_GEOTHERMAL_FISSURE",
+   "hex_x": 11,
+   "hex_y": 30,
+   "terrain": "TERRAIN_PLAINS_HILLS",
+   "visible": false
+  },
+  {
+   "feature": "FEATURE_VOLCANO",
+   "hex_x": 11,
+   "hex_y": 31,
+   "terrain": "TERRAIN_PLAINS_MOUNTAIN",
+   "visible": false
+  },
+  {
+   "hex_x": 12,
+   "hex_y": 25,
+   "terrain": "TERRAIN_COAST",
+   "visible": false
+  },
+  {
+   "hex_x": 12,
+   "hex_y": 26,
+   "terrain": "TERRAIN_GRASS_HILLS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_JUNGLE",
+   "hex_x": 12,
+   "hex_y": 27,
+   "owner": "self",
+   "terrain": "TERRAIN_PLAINS_HILLS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_JUNGLE",
+   "hex_x": 12,
+   "hex_y": 28,
+   "owner": "self",
+   "terrain": "TERRAIN_PLAINS",
+   "visible": true
+  },
+  {
+   "hex_x": 12,
+   "hex_y": 29,
+   "owner": "self",
+   "terrain": "TERRAIN_PLAINS_HILLS",
+   "visible": true
+  },
+  {
+   "hex_x": 12,
+   "hex_y": 30,
+   "terrain": "TERRAIN_PLAINS_HILLS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_FOREST",
+   "hex_x": 12,
+   "hex_y": 31,
+   "terrain": "TERRAIN_PLAINS",
+   "visible": false
+  },
+  {
+   "hex_x": 13,
+   "hex_y": 30,
+   "resource": "RESOURCE_HORSES",
+   "terrain": "TERRAIN_PLAINS",
+   "visible": true
+  },
+  {
+   "hex_x": 13,
+   "hex_y": 31,
+   "terrain": "TERRAIN_PLAINS",
+   "visible": true
+  },
+  {
+   "hex_x": 14,
+   "hex_y": 30,
+   "owner": "self",
+   "terrain": "TERRAIN_PLAINS_HILLS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_GEOTHERMAL_FISSURE",
+   "hex_x": 14,
+   "hex_y": 31,
+   "terrain": "TERRAIN_PLAINS_HILLS",
+   "visible": true
+  },
+  {
+   "feature": "FEATURE_FOREST",
+   "hex_x": 15,
+   "hex_y": 30,
+   "terrain": "TERRAIN_PLAINS_HILLS",
+   "visible": true
+  }
+ ],
+ "units": [
+  {
+   "formation_class": "FORMATION_CLASS_LAND_COMBAT",
+   "hex_x": 30,
+   "hex_y": 26,
+   "hp": 100,
+   "moves_left": 0,
+   "type": "UNIT_SCOUT",
+   "unit_id": 196608
+  },
+  {
+   "formation_class": "FORMATION_CLASS_LAND_COMBAT",
+   "hex_x": 17,
+   "hex_y": 26,
+   "hp": 100,
+   "moves_left": 0,
+   "type": "UNIT_WARRIOR",
+   "unit_id": 131073
+  },
+  {
+   "formation_class": "FORMATION_CLASS_CIVILIAN",
+   "hex_x": 20,
+   "hex_y": 23,
+   "hp": 100,
+   "moves_left": 0,
+   "type": "UNIT_BUILDER",
+   "unit_id": 1310722
+  },
+  {
+   "formation_class": "FORMATION_CLASS_CIVILIAN",
+   "hex_x": 18,
+   "hex_y": 19,
+   "hp": 100,
+   "moves_left": 0,
+   "type": "UNIT_TRADER",
+   "unit_id": 458755
+  },
+  {
+   "formation_class": "FORMATION_CLASS_LAND_COMBAT",
+   "hex_x": 17,
+   "hex_y": 17,
+   "hp": 42,
+   "moves_left": 0,
+   "type": "UNIT_ARCHER",
+   "unit_id": 655365
+  },
+  {
+   "formation_class": "FORMATION_CLASS_CIVILIAN",
+   "hex_x": 19,
+   "hex_y": 28,
+   "hp": 100,
+   "moves_left": 1,
+   "type": "UNIT_BUILDER",
+   "unit_id": 1179657
+  }
+ ],
+ "yields": {
+  "culture_per_turn": 13.38671875,
+  "faith": 100.8828125,
+  "faith_per_turn": 9,
+  "gold": 94.640625,
+  "gold_per_turn": 24,
+  "science_per_turn": 46.25
+ }
+}
