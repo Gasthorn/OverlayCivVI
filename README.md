@@ -43,11 +43,10 @@ Mod Lua ──print()──▶ Lua.log ──tail──▶ Service moteur (Pytho
 ## 🚀 Fonctionnalités Clés
 
 - **Extraction respectueuse du brouillard de guerre** : seules les informations connues du joueur local sont exportées. Les règles de visibilité sont appliquées explicitement (spec 01).
-- **Recommandations explicables** : moteur de règles fondé sur la base de données du jeu (boosts Eureka, technologies débloquant des ressources visibles, villes inactives…) et scores de 7 stratégies (Rush Cavalerie, Armée médiévale, Plateformes commerciales, Victoire scientifique, Victoire culturelle, Victoire religieuse, Bataille navale), chacun avec ses facteurs.
-- **Placement des quartiers** : le mod demande au jeu le meilleur emplacement de chaque quartier dans chaque ville (adjacence exacte, mods compris), et le moteur propose les villes où il rapporte le plus.
+- **Recommandations explicables** : moteur de règles fondé sur la base de données du jeu (boosts Eureka, technologies débloquant des ressources visibles, villes inactives…) et scores de 7 stratégies (Rush Cavalerie, Armée médiévale, Plateformes commerciales, Victoire scientifique, Victoire culturelle, Victoire religieuse, Bataille navale), chacune avec ses facteurs.
 - **Conseiller LLM optionnel** *(à venir)* : actions supplémentaires en langage naturel.
 - **HUD transparent en 4 pages** : *Actions* (le plan de votre stratégie, les urgences, les autres opportunités), *Stratégies* (choix et scores détaillés), *Villes* (schéma de chaque ville et disposition conseillée des quartiers) et *Colonisation* (meilleurs sites pour vos colons). Mode « click-through » commutable au raccourci clavier.
-- **Disposition des quartiers** : pour chaque ville, l'overlay dessine une mini-carte et indique où placer chaque quartier manquant pour maximiser l'adjacence, interactions entre quartiers comprises (Port + Plateforme commerciale, quartiers voisins…).
+- **Disposition des quartiers** : le mod demande au jeu le meilleur emplacement de chaque quartier (adjacence exacte, mods compris). Pour chaque ville, l'overlay dessine une mini-carte et indique où placer chaque quartier manquant pour maximiser l'adjacence, interactions entre quartiers comprises (Port + Plateforme commerciale, quartiers voisins…), et propose les villes où chaque quartier rapporte le plus.
 - **Stratégie suivie** : en début de partie, l'overlay vous demande de choisir une stratégie. Les actions recommandées se concentrent ensuite sur elle : technologies et dogmes clés, quartiers aux meilleurs emplacements, bâtiments, unités, aménagements. Le choix est mémorisé pour chaque partie.
 - **Merveilles de la stratégie** : l'overlay propose la prochaine merveille utile à votre stratégie, dans la ville qui peut la construire, et réserve son emplacement sur la carte de la ville pour que les quartiers voisins en profitent.
 - **Colonisation** : sur la partie découverte de la carte, l'overlay classe les meilleurs sites où fonder vos prochaines villes (eau douce, ressources, collines, distance à vos villes…) et rappelle d'y envoyer votre colon.
@@ -74,7 +73,7 @@ Toute modification d'un message JSON passe d'abord par la spec et le schéma con
 ## ⚙️ Installation & Démarrage
 
 ### Prérequis
-- Windows 10/11 et **Civilization VI** (PC). Les extensions *Rise and Fall* et *Gathering Storm* sont prises en charge, mais pas obligatoires.
+- Windows 10/11 et **Civilization VI** (PC), en **partie solo** (le multijoueur n'est pas pris en charge). Les extensions *Rise and Fall* et *Gathering Storm* sont prises en charge, mais pas obligatoires.
 - **Python 3.10 ou plus récent**, avec le lanceur `py` (option « py launcher » de l'installeur python.org).
 - Le jeu en mode **fenêtré** ou **fenêtré sans bordure** (*Options ▸ Graphismes*) : le plein écran exclusif masque l'overlay.
 
