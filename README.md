@@ -80,7 +80,7 @@ Toute modification d'un message JSON passe d'abord par la spec et le schéma con
 
 ### 1. Récupérer le projet et installer les dépendances
 ```powershell
-git clone <url-du-dépôt> OverlayCivVI
+git clone https://github.com/Gasthorn/OverlayCivVI.git OverlayCivVI
 cd OverlayCivVI
 py -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
