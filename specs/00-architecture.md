@@ -29,9 +29,17 @@ Décrire les composants du système, leurs frontières et les canaux qui les rel
 | Mod d'extraction | `src/mod/` | 01 | Dans le jeu (contexte UI) |
 | Service moteur | `src/engine/` | 02 | `python src/engine/service.py` |
 | Overlay | `src/ui/` | 03 | `python src/ui/main.py` |
+| Lanceur | `src/launcher.py` | 00 §3.1 | `pythonw src/launcher.py` |
 | Contrat moteur → UI | `specs/schemas/recommendations.schema.json` | 04 | — |
 | Contrat UI → moteur | `specs/schemas/client_messages.schema.json` | 04 §4 | — |
 | Contrat mod ↔ moteur | `specs/schemas/game_state.schema.json` | 01 | — |
+
+### 3.1 Lanceur
+Démarre le service moteur et l'overlay en un seul geste, sans console, depuis un raccourci sur le bureau créé par `scripts/install_shortcut.ps1`. Il n'ajoute aucun canal entre les composants : ce sont deux processus enfants, qui restent lançables séparément.
+- **Instance unique** : un mutex Windows nommé. Un second lancement affiche un message et s'arrête, sans rien démarrer.
+- **Durée de vie** : l'overlay décide. Quand il se ferme, le lanceur arrête le service et se termine. Les enfants sont placés dans un job Windows, pour qu'ils s'arrêtent aussi si le lanceur est tué.
+- **Logs** : `data/logs/launcher.log`, `service.log` et `overlay.log` (sous `CIVOVL_DATA_DIR` si la variable est définie), réécrits à chaque lancement.
+- **Erreurs** : si un processus ne démarre pas ou si l'overlay se termine sur une erreur, un message indique le dossier des logs.
 
 ## 4. Contrats & Versionnage
 - Chaque message échangé porte un champ `schema_version` (entier). Toute modification incompatible du schéma l'incrémente.

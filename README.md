@@ -80,6 +80,13 @@ claude "Crée la fenêtre overlay PySide6 selon specs/03-overlay-ui.md"
 Le script copie `src/mod/` dans `<Documents>\My Games\Sid Meier's Civilization VI\Mods\CivVISmartOverlay`. `<Documents>` est le dossier Documents réel de Windows (souvent `OneDrive\Documents`). Activez ensuite le mod dans **Extras ▸ Mods**.
 
 ### 2. Lancement
+Depuis une icône sur le bureau, à créer une seule fois :
+```powershell
+.\scripts\install_shortcut.ps1
+```
+Le raccourci **Civ VI Smart Overlay** démarre le service et l'overlay sans console. Fermer l'overlay arrête aussi le service. Les logs sont dans `data/logs/`.
+
+Ou séparément, avec les logs dans la console :
 ```powershell
 # Service moteur (lit Lua.log, publie sur ws://127.0.0.1:8765)
 python src/engine/service.py

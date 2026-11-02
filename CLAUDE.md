@@ -15,6 +15,7 @@ L'environnement virtuel se trouve dans `.venv` (Python 3.14, lancé via `py`). `
 - **Installer les dépendances** : `.\.venv\Scripts\python.exe -m pip install -r requirements.txt`
 - **Lancer le service moteur** : `.\.venv\Scripts\python.exe src/engine/service.py`
 - **Lancer l'overlay UI** : `.\.venv\Scripts\python.exe src/ui/main.py`
+- **Lancer le tout sans console** : `.\.venv\Scripts\pythonw.exe src/launcher.py` (raccourci bureau : `.\scripts\install_shortcut.ps1`, logs dans `data/logs/`)
 - **Simuler une partie** : `.\.venv\Scripts\python.exe scripts/simulate_game.py data/fake_Lua.log` (avec `CIVOVL_LUA_LOG` pointant dessus)
 - **Exécuter les tests** : `.\.venv\Scripts\python.exe -m pytest`
 

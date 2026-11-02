@@ -3,7 +3,7 @@
 ## 1. Objectif
 Une application desktop **PySide6** qui se superpose à Civilization VI et affiche, en temps réel, les messages publiés par le service moteur (spec 04). L'UI ne fait **aucun calcul métier**.
 
-Lancement : `python src/ui/main.py`.
+Lancement : `python src/ui/main.py`, ou avec le service moteur via le lanceur (spec 00 §3.1).
 
 ## 2. Prérequis d'Affichage
 - Civ VI doit tourner en **mode fenêtré ou fenêtré sans bordure**. En plein écran exclusif, aucune fenêtre externe ne peut s'afficher par-dessus le jeu.
