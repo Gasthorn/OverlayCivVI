@@ -5,7 +5,7 @@
 ## 1. Objectif
 Un service Python local qui :
 1. lit `Lua.log` et reconstitue les messages `game_state` (spec 01) ;
-2. les valide, les archive, puis calcule des recommandations à partir des **règles du jeu** (base de données de Civ VI) et d'**heuristiques** explicables ;
+2. les valide, les archive éventuellement (§2), puis calcule des recommandations à partir des **règles du jeu** (base de données de Civ VI) et d'**heuristiques** explicables ;
 3. publie le résultat sur un WebSocket local, selon le contrat de la spec 04.
 
 Lancement : `python src/engine/service.py`.
@@ -21,9 +21,8 @@ Lancement : `python src/engine/service.py`.
 | `src/engine/recommendations.py` | Construction des messages `status` et `recommendations` (spec 04) |
 | `src/contracts.py` | Chargement des JSON Schemas, partagé entre le moteur et l'UI |
 | `src/engine/game_db.py` | Chargement des données de règles du jeu (technologies, dogmes, boosts, coûts, unités, vitesses) |
-| `src/engine/archive.py` | Écrit `data/game_state.json` (dernier état) et `data/raw/<game_id>/turn_XXXX_<trigger>.json` |
+| `src/engine/archive.py` | Écrit `data/game_state.json` (dernier état) et, si `CIVOVL_ARCHIVE=1`, `data/raw/<game_id>/turn_XXXX_<trigger>.json`. L'archivage est désactivé par défaut : il ne sert qu'à constituer un jeu de données (§8), et pèse plusieurs Mo par partie |
 | `src/engine/rules/` | Une règle par fichier (cf. §5) |
-| `src/engine/milestones.py` | Jalons passés et à venir (cf. §5.4) |
 | `src/engine/strategies.py` | Scores de stratégie (cf. §6.1 à §6.3) |
 | `src/engine/strategy_focus.py` | Actions de focus pour la stratégie suivie (cf. §6.5) |
 | `src/engine/preferences.py` | Stratégie suivie, mémorisée par partie (cf. §6.5) |
@@ -58,8 +57,8 @@ Lancement : `python src/engine/service.py`.
   - Repli ensuite sur `en_US`. Pour les formes `singulier|pluriel`, seul le singulier est gardé. Un type sans texte devient un libellé lisible (`UNIT_MY_THING` → « My thing »).
 - **Disponibilité** : un élément est disponible si tous ses prérequis sont acquis. Les éléments sans prérequis hors de la première ère (ère du futur de Gathering Storm) ne sont jamais proposés, car d'autres conditions les débloquent.
 - **Éléments uniques** : `resolve_for_player` renvoie la version que la civilisation peut réellement construire, d'après les traits de la civilisation et du leader et les tables `*Replaces` (ex. Hypaspiste au lieu d'Épéiste pour la Macédoine). Pour compter ce que possède le joueur, on inclut les variantes uniques.
-- **Normalisation de la vitesse** : toute durée exprimée « en tours » dans les règles et les jalons est définie à la vitesse Standard, puis convertie avec `GameSpeeds.CostMultiplier / 100`. Par exemple, « tour 30 » en Standard correspond au tour 60 en Épique.
-- Si la base est introuvable ou illisible, le service passe en mode dégradé : aucune règle n'est évaluée, le snapshot et les jalons restent publiés, et un statut `degraded` est envoyé avec la raison.
+- **Normalisation de la vitesse** : toute durée exprimée « en tours » dans les règles est définie à la vitesse Standard, puis convertie avec `GameSpeeds.CostMultiplier / 100`. Par exemple, « tour 30 » en Standard correspond au tour 60 en Épique.
+- Si la base est introuvable ou illisible, le service passe en mode dégradé : aucune règle n'est évaluée, le snapshot reste publié, et un statut `degraded` est envoyé avec la raison.
 - Fixture de test : `tests/fixtures/game_db.sql`, extraite de la vraie base par `scripts/extract_game_db_fixture.py`.
 
 ## 5. Moteur de Règles
@@ -93,10 +92,8 @@ Une unité navale (`Units.Domain = DOMAIN_SEA`) n'est proposée que si au moins 
 - Les actions sont triées par priorité décroissante.
 - Les listes sont recalculées sur `game_loaded`, `turn_begin` et `state_changed`. Sur `turn_end`, seul le snapshot change.
 
-### 5.4 Jalons (`src/engine/milestones.py`)
-- **Passés** : ils sont détectés en comparant les états successifs. Ce sont la fondation de la capitale ou d'une ville, un changement de gouvernement et une nouvelle ère. Au premier état d'une partie, l'historique est reconstruit à partir des archives `data/raw/<game_id>/`. Les 6 derniers sont publiés.
-- **À venir** : l'échéance de la recherche et du dogme en cours, calculée par `tour + ⌈(coût − progrès) / rendement par tour⌉` et préfixée par « ≈ ».
-- Partie reprise en cours de route (premier état observé après le tour 5, sans archive) : les villes déjà présentes sont enregistrées sans jalon, pour ne pas inventer de fondation « au tour actuel ».
+### 5.4 Retiré : jalons
+Retirés le 2026-11-02 (`milestones.py`, page Jalons, champ `milestones` de la spec 04) : jugés peu utiles en jeu.
 
 ## 6. Scores de Stratégie
 
@@ -119,14 +116,16 @@ Chaque stratégie est une **fonction heuristique documentée**, qui renvoie un s
 | `science_campus` | Emplacement de campus (0,30) · progression vers Écriture (0,20) · science par tour (0,20) · campus existants (0,20) · bonus unique (0,10) | — |
 | `culture_victory` | Culture par tour (0,30) · emplacement de théâtre (0,20) · progression vers le dogme Art dramatique et poésie (0,15) · théâtres existants (0,15) · villes avec merveille (0,10) · bonus unique (0,10) | — |
 | `religious_victory` | Foi par tour (0,25) · religion fondée (0,20 ; sinon jusqu'à 0,5 tant que le tour normalisé est sous 80) · emplacement de lieu saint (0,20) · lieux saints existants (0,15) · progression vers Astrologie (0,10) · bonus unique (0,10) | — |
+| `naval_warfare` | Emplacement de port (0,25) · progression vers Navigation céleste (0,20) · ressources sur les tuiles d'eau près des villes (0,15) · voisin (0,15) · ports existants (0,10) · navire ou port unique (0,15) | Part des villes côtières (`cities[].coastal`). Si le champ est absent pour toutes les villes, pas de multiplicateur |
 
-- **Facteur d'emplacement** : quand `cities[].district_sites` est exporté (spec 01), il vaut la moyenne des 2 meilleures adjacences libres (calculées par le jeu) divisée par 3, plafonnée à 1. Son libellé est « Meilleur emplacement de Campus : +4 à Kwango ». Sinon on utilise une estimation à partir des tuiles : rivières (commerce), montagnes + ½ jungles (campus), montagnes + ½ forêts (lieu saint), ou rien (théâtre).
+- **Facteur d'emplacement** : quand `cities[].district_sites` est exporté (spec 01), il vaut la moyenne des 2 meilleures adjacences libres (calculées par le jeu) divisée par 3, plafonnée à 1. Son libellé est « Meilleur emplacement de Campus : +4 à Kwango ». Sinon on utilise une estimation à partir des tuiles : rivières (commerce), montagnes + ½ jungles (campus), montagnes + ½ forêts (lieu saint), part des villes côtières (port), ou rien (théâtre).
 - **Progression vers un dogme** : même formule que pour une technologie, sur l'arbre des dogmes.
 
 - **Progression vers une technologie** : 1 si elle est acquise, sinon `1 − étapes/4`, +0,15 si le boost est obtenu (0,95 au maximum). `étapes` compte la technologie elle-même et ses prérequis manquants.
 - **Bonus unique** : la civilisation possède un remplacement unique de l'élément clé (unité, quartier ou bâtiment).
 - Pondérations dans `src/engine/strategies.py`, documentées en docstring. Toute modification d'une pondération s'accompagne d'une mise à jour des tests (`tests/test_strategies.py`).
-- Calibrage de référence : vraie partie Kongo au tour 50, vitesse En ligne → Focus Scientifique 0,78, Rush Commercial 0,44, Rush Cavalerie 0,26.
+- Libellés affichés : `cavalry_rush` « Rush Cavalerie », `medieval_army` « Armée médiévale », `commercial_hub_rush` « Plateformes commerciales », `science_campus` « Victoire scientifique », `culture_victory` « Victoire culturelle », `religious_victory` « Victoire religieuse », `naval_warfare` « Bataille navale ». Les `id` ne changent pas quand un libellé change : ils sont mémorisés dans `data/followed_strategies.json`.
+- Calibrage de référence : vraie partie Kongo au tour 50, vitesse En ligne → Victoire scientifique 0,78, Plateformes commerciales 0,44, Bataille navale 0,36 (côtes inconnues), Rush Cavalerie 0,26.
 
 ### 6.5 Stratégie suivie (`src/engine/strategy_focus.py`)
 Le joueur peut suivre une stratégie depuis l'overlay (spec 04 §4). Le choix est mémorisé par partie dans `data/followed_strategies.json` (`src/engine/preferences.py`).
@@ -141,7 +140,9 @@ Le joueur peut suivre une stratégie depuis l'overlay (spec 04 §4). Le choix es
 | `science_campus` | Écriture, Éducation | Campus → Bibliothèque → Université | — | — |
 | `culture_victory` | *Art dramatique et poésie*, *Humanisme* (dogmes) | Théâtre → Amphithéâtre → Musée d'art *ou* d'archéologie | — | — |
 | `religious_victory` | Astrologie, *Théologie* (dogme) | Lieu saint → Sanctuaire → Temple | Apôtre, Missionnaire (3), seulement si une religion est fondée | — |
+| `naval_warfare` | Navigation à voile, Construction navale, Navigation céleste, Gréement carré | Port → Phare → Chantier naval | Frégate, Quadrirème, Galère (4) | — |
 
+- `naval_warfare` (`coastal_only`) : le Port n'est proposé que dans les villes qui ne sont pas connues comme non côtières, et les navires seulement si au moins une ville peut être côtière.
 - Recherche : au plus une technologie et un dogme, à savoir le prochain pas vers la première étape clé manquante de chaque arbre.
 - Bâtiments : chaque maillon de la chaîne peut lister des alternatives. Il est acquis dès que l'une est construite (Caserne et Écurie sont exclusives dans le jeu).
 - **Choix des villes pour le quartier** : quand `district_sites` est exporté, les villes sans emplacement valide sont écartées et les autres sont classées par adjacence (« meilleur emplacement, adjacence +3 »). Si aucun emplacement candidat n'a de bonus (ex. Campement), ou sans données, on classe par population.
@@ -189,6 +190,7 @@ Chaque plan liste ses merveilles clés par ordre de priorité (`PLANS[...].wonde
 | `science_campus` | Grande bibliothèque, Université de Sankoré, Université d'Oxford |
 | `culture_victory` | Oracle, Colisée, Cité interdite, Théâtre Bolchoï, Ermitage, Christ Rédempteur, Broadway, Opéra de Sydney |
 | `religious_victory` | Stonehenge, Temple de la Mahabodhi, Sainte-Sophie, Kōtoku-in, Temple de Mînâkshî, Mont-Saint-Michel |
+| `naval_warfare` | Grand Phare, Colosse, Arsenal de Venise |
 
 - **Choix** (`wonder_pick`) : la première merveille du plan qui n'est pas déjà construite par le joueur et qu'une ville peut lancer (`cities[].wonder_sites`, spec 01 : prérequis acquis, pas construite ailleurs). Si une merveille du plan est déjà en production, rien n'est proposé : une seule à la fois.
 - **Emplacement** : parmi les tuiles autorisées par le jeu, celle qui maximise `bonus aux quartiers voisins existants − 0,5 × meilleure adjacence de quartier de la tuile − malus de ressource bonus + 0,5 × population de la ville`.
@@ -266,7 +268,7 @@ Pour chaque ville dont la carte détaillée est connue (`cities[].plots`, spec 0
   - l'attrait, la loyauté et les barbares ne sont pas modélisés.
 
 ## 8. Évolution ML (hors v1)
-- Les archives `data/raw/` forment le jeu de données. Le format est figé par `schema_version`.
+- Les archives `data/raw/` forment le jeu de données. Elles ne sont écrites que si `CIVOVL_ARCHIVE=1` (§2). Le format est figé par `schema_version`.
 - Pistes envisagées : imitation des choix du joueur (technologie, production), prédiction des rendements à N tours. Le RL n'est envisagé que si un simulateur exploitable apparaît.
 - Avant toute implémentation, une spec dédiée (`specs/05-ml.md`) devra définir le jeu de données, la cible et la métrique.
 
@@ -276,6 +278,6 @@ Pour chaque ville dont la carte détaillée est connue (`cities[].plots`, spec 0
 3. ✅ `archive.py`.
 4. ✅ `ws_server.py` + `service.py` → **MVP 0** : publier un message `recommendations` qui ne contient que `snapshot`.
 5. ✅ `game_db.py`, puis les règles du §5.2, une par une, avec leurs tests.
-6. ✅ `milestones.py` (§5.4).
+6. ~~`milestones.py` (§5.4)~~ : retiré.
 7. ✅ `strategies.py` (MVP 2).
 8. `advisor_llm.py` (MVP 2, optionnel).

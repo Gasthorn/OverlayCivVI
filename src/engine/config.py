@@ -100,6 +100,7 @@ class EngineConfig:
     ws_host: str
     ws_port: int
     poll_interval_s: float
+    archive: bool = False  # archivage par tour dans data/raw/ (CIVOVL_ARCHIVE=1)
 
     @classmethod
     def from_env(cls) -> EngineConfig:
@@ -116,4 +117,5 @@ class EngineConfig:
             ws_host="127.0.0.1",
             ws_port=int(os.environ.get("CIVOVL_WS_PORT", "8765")),
             poll_interval_s=float(os.environ.get("CIVOVL_POLL_INTERVAL", "0.25")),
+            archive=os.environ.get("CIVOVL_ARCHIVE", "0") == "1",
         )

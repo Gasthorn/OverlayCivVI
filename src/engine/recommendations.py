@@ -7,7 +7,7 @@ from typing import Any
 
 from engine.state import GameState
 
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2  # 2 : retrait de `milestones`
 
 # Recalcul complet des listes ; les autres déclencheurs ne rafraîchissent que le snapshot.
 RECOMPUTE_TRIGGERS = frozenset({"game_loaded", "turn_begin", "state_changed"})
@@ -31,7 +31,6 @@ def build_recommendations(
     game_id: str,
     previous: dict[str, Any] | None = None,
     *,
-    milestones: list[dict[str, Any]] | None = None,
     actions: list[dict[str, Any]] | None = None,
     strategies: list[dict[str, Any]] | None = None,
     cities: list[dict[str, Any]] | None = None,
@@ -58,7 +57,6 @@ def build_recommendations(
             "culture_per_turn": y.culture_per_turn,
             "faith": y.faith,
         },
-        "milestones": previous["milestones"] if keep_previous else (milestones or []),
         "strategies": previous["strategies"] if keep_previous else (strategies or []),
         "actions": previous["actions"] if keep_previous else (actions or []),
         "cities": previous.get("cities", []) if keep_previous else (cities or []),

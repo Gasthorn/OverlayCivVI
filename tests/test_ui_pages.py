@@ -61,14 +61,14 @@ def test_choosing_a_strategy_switches_to_actions(window, game_db) -> None:
 
 def test_page_kept_on_new_turn_with_same_strategy(window, game_db) -> None:
     window.on_recommendations(message(game_db, "medieval_army"))
-    window.show_page("milestones")
+    window.show_page("settle")
     window.on_recommendations(message(game_db, "medieval_army"))
-    assert window.current_page() == "milestones"
+    assert window.current_page() == "settle"
 
 
 def test_new_game_resets_page(window, game_db) -> None:
     window.on_recommendations(message(game_db, "medieval_army", game_id="g1"))
-    window.show_page("milestones")
+    window.show_page("settle")
     window.on_recommendations(message(game_db, None, game_id="g2"))
     assert window.current_page() == "strategies"
 
@@ -121,10 +121,10 @@ def test_already_interactive_player_stays_interactive(window, game_db) -> None:
 def test_next_page_cycles(window) -> None:
     window.show_page("actions")
     visited = []
-    for _ in range(5):
+    for _ in range(4):
         window.next_page()
         visited.append(window.current_page())
-    assert visited == ["strategies", "cities", "settle", "milestones", "actions"]
+    assert visited == ["strategies", "cities", "settle", "actions"]
 
 
 # --- Page Villes ------------------------------------------------------------------

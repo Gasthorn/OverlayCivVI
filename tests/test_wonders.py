@@ -91,7 +91,7 @@ def test_wonder_tile_is_reserved_on_the_city_map(game_db: GameDb, mvp1_state_dic
     assert (wonder["hex_x"], wonder["hex_y"]) == FAR_FROM_THEATER and wonder["adjacency"] == 0
     assert (holy_site["kind"], holy_site["hex_x"], holy_site["hex_y"]) == ("DISTRICT_HOLY_SITE", 10, 9)
     message = {
-        "type": "recommendations", "schema_version": 1, "turn": 1, "generated_at": "x",
-        "snapshot": {}, "milestones": [], "strategies": [], "actions": [], "cities": [city],
+        "type": "recommendations", "schema_version": 2, "turn": 1, "generated_at": "x",
+        "snapshot": {}, "strategies": [], "actions": [], "cities": [city],
     }
     assert contracts.first_error("recommendations", message) is None

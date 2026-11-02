@@ -25,7 +25,7 @@ Lancement : `python src/ui/main.py`, ou avec le service moteur via le lanceur (s
 - Raccourcis globaux, enregistrés avec `RegisterHotKey` (Win32, via `ctypes`), **pas** de hook clavier global :
   - `Ctrl+Alt+O` : passer de `click_through` à `interactive` et inversement ;
   - `Ctrl+Alt+H` : afficher ou masquer ;
-  - `Ctrl+Alt+P` : page suivante (Actions → Stratégies → Villes → Jalons), utilisable en click-through ;
+  - `Ctrl+Alt+P` : page suivante (Actions → Stratégies → Villes → Colonisation), utilisable en click-through ;
   - `Ctrl+Alt+V` : ville suivante sur la page Villes (ouvre la page si besoin).
 - La position, la taille, l'opacité et l'état replié des sections sont sauvegardés dans `%APPDATA%\CivVISmartOverlay\ui.json`.
 - En mode `interactive`, un bouton « × » quitte l'overlay et une poignée permet de le redimensionner ; un clic-glisser n'importe où le déplace.
@@ -37,7 +37,7 @@ Lancement : `python src/ui/main.py`, ou avec le service moteur via le lanceur (s
 - **Données périmées** : si le `turn` du dernier `recommendations` reçu est inférieur au `turn` du dernier `status`, le texte s'affiche grisé avec la mention « en attente d'analyse ».
 
 ## 4. Pages
-L'overlay est organisé en **5 pages**, une seule visible à la fois, avec des onglets en tête (« Actions », « Stratégies », « Villes », « Colonisation », « Jalons ») et `Ctrl+Alt+P` pour passer à la suivante.
+L'overlay est organisé en **4 pages**, une seule visible à la fois, avec des onglets en tête (« Actions », « Stratégies », « Villes », « Colonisation ») et `Ctrl+Alt+P` pour passer à la suivante.
 
 **Bascule automatique** (`OverlayWindow._update_auto_page`) :
 - Nouvelle partie (`game_id` différent) ou changement de `followed_strategy` : page **Actions** si une stratégie est suivie, page **Stratégies** sinon. En début de partie, l'overlay demande donc de choisir une stratégie, et le choix bascule sur les actions.
@@ -84,7 +84,7 @@ L'UI n'applique pas le choix de stratégie elle-même : elle envoie `follow_stra
 - Sans carte (avant le premier début de tour) : « Carte des villes disponible au début du prochain tour ».
 
 ### 4.5 Page Colonisation (`settle`)
-- Placée entre Villes et Jalons dans l'ordre des onglets et de `Ctrl+Alt+P`.
+- Dernière page dans l'ordre des onglets et de `Ctrl+Alt+P`.
 - **Carte** de la zone découverte autour des villes et des colons (`settle.tiles`, même widget `HexMap`, 300 px de haut) :
   - territoire du joueur bordé de blanc, territoire étranger hachuré ;
   - villes du joueur cerclées, villes étrangères estompées ;
@@ -93,9 +93,8 @@ L'UI n'applique pas le choix de stratégie elle-même : elle envoie `follow_stra
 - **Liste** : une ligne par site (« n°1 », score, raisons, « à N tuiles de <ville> »).
 - Sans données (avant le premier début de tour avec le mod à jour) : « Carte de colonisation disponible au début du prochain tour ».
 
-### 4.3 Page Jalons (`milestones`)
-- Jalons passés (`status: "done"`) en gris, jalons à venir en surbrillance.
-- Exemple : `Tour 1 · Capitale fondée` · `▶ Tour 32 · ≈ Recherche : Équitation`
+### Retiré : page Jalons (`milestones`)
+Retirée le 2026-11-02 : jugée peu utile. Le moteur ne publie plus `milestones` (spec 04, version 2).
 
 ### Retiré : bandeau (`snapshot`)
 Retiré le 2026-10-29 : il répétait les informations de l'interface du jeu. Le moteur publie toujours `snapshot` (spec 04).
@@ -109,7 +108,7 @@ Retiré le 2026-10-29 : il répétait les informations de l'interface du jeu. Le
 2. ✅ `src/ui/hotkeys.py` (`RegisterHotKey` via `ctypes`, intégré avec `QAbstractNativeEventFilter`).
 3. ✅ `src/ui/ws_client.py` (reconnexion, validation, signaux Qt).
 4. ✅ `src/ui/styles/dark.qss`.
-5. ✅ Pages : `src/ui/pages/` (actions, stratégies, jalons), liste d'actions réutilisable `src/ui/widgets/action_list.py`, section repliable `src/ui/panels/collapsible.py`.
+5. ✅ Pages : `src/ui/pages/` (actions, stratégies, villes, colonisation), liste d'actions réutilisable `src/ui/widgets/action_list.py`, section repliable `src/ui/panels/collapsible.py`.
 6. ✅ Choix de stratégie, puis `EngineClient.follow_strategy` (spec 04 §4).
 7. ✅ Tests hors écran : `tests/test_ui_pages.py` (bascule automatique, sections, bouton « Suivre »).
 

@@ -317,8 +317,8 @@ def test_city_layout_message(game_db: GameDb, mvp1_state_dict: dict) -> None:
     assert odd["x"] == odd["hex_x"] + 0.5  # rangée impaire décalée
 
     message = {
-        "type": "recommendations", "schema_version": 1, "turn": 1, "generated_at": "x",
-        "snapshot": {}, "milestones": [], "strategies": [], "actions": [], "cities": cities,
+        "type": "recommendations", "schema_version": 2, "turn": 1, "generated_at": "x",
+        "snapshot": {}, "strategies": [], "actions": [], "cities": cities,
     }
     assert contracts.first_error("recommendations", message) is None
 

@@ -16,7 +16,6 @@ from engine.city_layout import CityPlotsCache, city_layouts
 from engine.config import EngineConfig
 from engine.game_db import GameDbProvider
 from engine.log_tailer import LuaLogTailer
-from engine.milestones import MilestoneTracker
 from engine.preferences import FollowedStrategies
 from engine.recommendations import RECOMPUTE_TRIGGERS, build_recommendations, build_status
 from engine.rules import run_rules
@@ -37,10 +36,9 @@ class EngineService:
         self.broadcaster = broadcaster
         self.broadcaster.on_client_message = self.handle_client_message
         self.tailer = LuaLogTailer(config.lua_log)
-        self.archive = Archive(config.data_dir)
+        self.archive = Archive(config.data_dir, enabled=config.archive)
         self.session = GameSession()
         self.game_db = GameDbProvider(config.gameplay_db, config.localization_db, config.language, config.game_dir)
-        self.milestones = MilestoneTracker(self.archive)
         self.followed = FollowedStrategies(config.data_dir)
         self.city_plots = CityPlotsCache()
         self._last_state: GameState | None = None
@@ -94,9 +92,8 @@ class EngineService:
         # Meilleurs emplacements recalculés depuis la carte (ressources protégées) ; hors début de
         # tour, le mod ne les exporte pas : on reprend les derniers connus.
         state = self.city_plots.enrich(state)
-        milestones = actions = strategies = cities = settle = None
+        actions = strategies = cities = settle = None
         if recompute or state.trigger in RECOMPUTE_TRIGGERS:
-            milestones = self.milestones.update(game_id, state, db)
             if db is not None:
                 actions = [a.to_message() for a in run_rules(state, db, followed_strategy=followed)]
                 strategies = score_strategies(state, db)
@@ -109,7 +106,7 @@ class EngineService:
         )
         self._last_recommendations = build_recommendations(
             state, game_id, self._last_recommendations,
-            milestones=milestones, actions=actions, strategies=strategies, cities=cities, settle=settle,
+            actions=actions, strategies=strategies, cities=cities, settle=settle,
             followed_strategy=followed, recompute=recompute,
         )
         self.broadcaster.publish(self._last_recommendations)

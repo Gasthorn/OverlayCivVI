@@ -9,7 +9,6 @@ import pytest
 
 from conftest import FIXTURES
 from engine.log_tailer import LuaLogTailer
-from engine.milestones import MilestoneTracker
 from engine.recommendations import build_recommendations
 from engine.rules import run_rules
 from engine.state import parse_game_state
@@ -32,8 +31,7 @@ def test_real_lua_log_excerpt_is_fully_decoded() -> None:
 def test_game_state_fixtures_produce_valid_messages(path: Path, game_db) -> None:
     state = parse_game_state(path.read_bytes())
     actions = [a.to_message() for a in run_rules(state, game_db)]
-    milestones = MilestoneTracker().update("g", state, game_db)
-    message = build_recommendations(state, "g", milestones=milestones, actions=actions)
+    message = build_recommendations(state, "g", actions=actions)
     assert contracts.first_error("recommendations", message) is None
     assert json.loads(path.read_text(encoding="utf-8")) == state.raw
 

@@ -38,9 +38,6 @@ QPushButton#panelHeader {
     padding: 2px 0;
 }
 
-QLabel#milestoneDone     { color: #8a909c; }
-QLabel#milestoneUpcoming { color: #f2e2a8; font-weight: 600; }
-
 QLabel#actionIcon   { font-family: "Segoe UI Emoji"; font-size: 11pt; }
 QLabel#actionTitle      { color: #f5f5f5; font-weight: 600; }
 QLabel#actionTitleFocus { color: #f2d36b; font-weight: 600; }  /* sert la stratégie suivie */

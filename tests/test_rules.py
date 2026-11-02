@@ -159,8 +159,8 @@ def test_run_rules_merges_and_sorts(game_db: GameDb, mvp1_state_dict: dict) -> N
     assert actions[0].id == "idle_research:civic"
     for action in actions:
         assert contracts.first_error("recommendations", {
-            "type": "recommendations", "schema_version": 1, "turn": 1, "generated_at": "x",
-            "snapshot": {}, "milestones": [], "strategies": [], "actions": [action.to_message()],
+            "type": "recommendations", "schema_version": 2, "turn": 1, "generated_at": "x",
+            "snapshot": {}, "strategies": [], "actions": [action.to_message()],
         }) is None
 
 

@@ -40,14 +40,14 @@ def plan_actions(state, db: GameDb, strategy_id: str) -> list:
 
 def test_science_focus_early_researches_writing(game_db: GameDb, mvp1_state_dict: dict) -> None:
     (action,) = plan_actions(state_from(mvp1_state_dict), game_db, "science_campus")
-    assert (action.title, action.reason) == ("Rechercher Écriture", "Focus Scientifique : débloque Campus")
+    assert (action.title, action.reason) == ("Rechercher Écriture", "Victoire scientifique : débloque Campus")
     assert action.strategy == "science_campus"
 
 
 def test_commercial_focus_walks_prereq_chain(game_db: GameDb, mvp1_state_dict: dict) -> None:
     (action,) = plan_actions(state_from(mvp1_state_dict), game_db, "commercial_hub_rush")
     assert action.title == "Rechercher Écriture"
-    assert action.reason == "Rush Commercial : en route vers Monnaie (Plateforme commerciale)"
+    assert action.reason == "Plateformes commerciales : en route vers Monnaie (Plateforme commerciale)"
 
 
 def test_cavalry_focus_early(game_db: GameDb, mvp1_state_dict: dict) -> None:
@@ -84,7 +84,7 @@ def test_city_already_producing_is_skipped(game_db: GameDb, mvp1_state_dict: dic
     assert titles(a for a in actions if a.category == "production") == ["Construire Campus à Pella"]
     # Écriture acquise : la recherche vise Éducation, dont le chemin passe par Tir à l'arc.
     research = next(a for a in actions if a.category == "research")
-    assert research.reason == "Focus Scientifique : en route vers Éducation (Université)"
+    assert research.reason == "Victoire scientifique : en route vers Éducation (Université)"
 
 
 def with_sites(data: dict, district: str, adjacency_by_city: dict[int, float]) -> dict:
@@ -102,7 +102,7 @@ def test_district_cities_ranked_by_game_adjacency(game_db: GameDb) -> None:
     data = with_sites(real_t050(), "DISTRICT_CAMPUS", {3: 1, 5: 4})
     actions = [a for a in focus_actions(state_from(data), game_db, "science_campus") if a.category == "production"]
     assert titles(actions) == ["Construire Campus à Bukavu", "Construire Campus à Kwango"]
-    assert actions[0].reason == "Focus Scientifique : meilleur emplacement, adjacence +4"
+    assert actions[0].reason == "Victoire scientifique : meilleur emplacement, adjacence +4"
     assert actions[0].priority > actions[1].priority
 
 
@@ -111,8 +111,8 @@ def test_district_without_adjacency_bonus(game_db: GameDb) -> None:
     data = with_sites(real_t050(), "DISTRICT_CAMPUS", {3: 0, 5: 2})
     actions = [a for a in focus_actions(state_from(data), game_db, "science_campus") if a.category == "production"]
     assert [a.reason for a in actions] == [
-        "Focus Scientifique : meilleur emplacement, adjacence +2",
-        "Focus Scientifique : emplacement sans bonus d'adjacence",
+        "Victoire scientifique : meilleur emplacement, adjacence +2",
+        "Victoire scientifique : emplacement sans bonus d'adjacence",
     ]
 
 
@@ -181,8 +181,8 @@ def test_urgent_actions_stay_on_top(game_db: GameDb, mvp1_state_dict: dict) -> N
 def test_focus_actions_match_contract(game_db: GameDb) -> None:
     actions = run_rules(state_from(real_t050()), game_db, followed_strategy="cavalry_rush")
     message = {
-        "type": "recommendations", "schema_version": 1, "turn": 1, "generated_at": "x",
-        "followed_strategy": "cavalry_rush", "snapshot": {}, "milestones": [], "strategies": [],
+        "type": "recommendations", "schema_version": 2, "turn": 1, "generated_at": "x",
+        "followed_strategy": "cavalry_rush", "snapshot": {}, "strategies": [],
         "actions": [a.to_message() for a in actions],
     }
     assert contracts.first_error("recommendations", message) is None
@@ -330,3 +330,19 @@ def test_dam_needs_a_known_site(game_db: GameDb, mvp1_state_dict: dict) -> None:
     mvp1_state_dict["cities"][1]["district_sites"] = {"DISTRICT_DAM": {"adjacency": 0, "hex_x": 1, "hex_y": 1}}
     (dam,) = [a for a in focus_actions(state_from(mvp1_state_dict), game_db, "science_campus") if ":support:" in a.id]
     assert dam.title == "Construire Barrage à Aigai" and "crues" in dam.reason
+
+
+def test_naval_plan_harbor_and_ships_on_coast_only(game_db: GameDb) -> None:
+    data = real_t050()
+    for city in data["cities"]:
+        city["coastal"] = False
+    data["cities"][2]["coastal"] = True  # Mpinda
+    actions = plan_actions(state_from(data), game_db, "naval_warfare")
+    assert [a.title for a in actions if a.id.startswith("focus:naval_warfare:district:")] == ["Construire Port à Mpinda"]
+    assert any(a.id == "focus:naval_warfare:units" for a in actions)
+
+    data["cities"][2]["coastal"] = False
+    actions = plan_actions(state_from(data), game_db, "naval_warfare")
+    assert not any(":district:" in a.id or a.id.endswith(":units") for a in actions)
+    research = next(a for a in actions if a.category == "research")
+    assert research.reason == "Bataille navale : débloque Quadrirème"

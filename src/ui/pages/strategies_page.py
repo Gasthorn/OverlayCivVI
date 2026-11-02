@@ -18,6 +18,7 @@ ICONS = {
     "scroll": "📜",
     "shield": "🛡️",
     "dove": "🕊️",
+    "anchor": "⚓",
 }
 FACTORS_SHOWN = 3
 

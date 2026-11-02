@@ -107,8 +107,8 @@ def test_settle_message_and_rule(game_db: GameDb, mvp1_state_dict: dict) -> None
     settle = settle_message(state, game_db)
     assert [s["rank"] for s in settle["sites"]] == list(range(1, len(settle["sites"]) + 1))
     message = {
-        "type": "recommendations", "schema_version": 1, "turn": 1, "generated_at": "x",
-        "snapshot": {}, "milestones": [], "strategies": [], "actions": [], "settle": settle,
+        "type": "recommendations", "schema_version": 2, "turn": 1, "generated_at": "x",
+        "snapshot": {}, "strategies": [], "actions": [], "settle": settle,
     }
     assert contracts.first_error("recommendations", message) is None
 

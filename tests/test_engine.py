@@ -89,6 +89,13 @@ def test_archive_writes_latest_and_turn_file(tmp_path: Path, mvp0_payload: bytes
     assert json.loads((tmp_path / "game_state.json").read_text(encoding="utf-8")) == state.raw
 
 
+def test_archive_disabled_writes_only_latest(tmp_path: Path, mvp0_payload: bytes) -> None:
+    state = parse_game_state(mvp0_payload)
+    assert Archive(tmp_path, enabled=False).save("g", state) is None
+    assert (tmp_path / "game_state.json").exists()
+    assert not (tmp_path / "raw").exists()
+
+
 # --- recommendations ---------------------------------------------------------
 
 def test_recommendations_message_matches_contract(mvp0_payload: bytes) -> None:
@@ -123,7 +130,7 @@ def test_broadcaster_replays_last_messages_and_broadcasts(mvp0_payload: bytes) -
         await broadcaster.start()
         try:
             broadcaster.publish(build_status("waiting_for_game"))
-            broadcaster.publish({"type": "status", "schema_version": 1, "state": "bogus"})  # rejeté
+            broadcaster.publish({"type": "status", "schema_version": 2, "state": "bogus"})  # rejeté
             async with connect(f"ws://127.0.0.1:{broadcaster.port}") as ws:
                 received = [json.loads(await asyncio.wait_for(ws.recv(), 2))]
                 broadcaster.publish(build_recommendations(parse_game_state(mvp0_payload), "g1"))

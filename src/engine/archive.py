@@ -1,4 +1,4 @@
-"""Écriture du dernier état et archivage par tour (spec 02 §2)."""
+"""Écriture du dernier état et archivage par tour, optionnel (spec 02 §2)."""
 
 from __future__ import annotations
 
@@ -21,15 +21,18 @@ def write_json_atomic(path: Path, data: Any) -> None:
 
 
 class Archive:
-    def __init__(self, data_dir: Path) -> None:
+    def __init__(self, data_dir: Path, enabled: bool = True) -> None:
         self.data_dir = data_dir
+        self.enabled = enabled  # False : seul le dernier état est écrit, rien dans data/raw/
 
     def game_dir(self, game_id: str) -> Path:
         return self.data_dir / "raw" / _UNSAFE_CHARS.sub("_", game_id)
 
-    def save(self, game_id: str, state: GameState) -> Path:
-        """Écrit data/game_state.json et data/raw/<game_id>/turn_XXXX_<trigger>.json."""
+    def save(self, game_id: str, state: GameState) -> Path | None:
+        """Écrit data/game_state.json et, si l'archivage est activé, data/raw/<game_id>/turn_XXXX_<trigger>.json."""
         write_json_atomic(self.data_dir / "game_state.json", state.raw)
+        if not self.enabled:
+            return None
         turn_path = self.game_dir(game_id) / f"turn_{state.turn:04d}_{state.trigger}.json"
         write_json_atomic(turn_path, state.raw)
         return turn_path

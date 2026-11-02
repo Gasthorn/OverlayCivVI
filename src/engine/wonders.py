@@ -36,6 +36,8 @@ WONDER_NOTES = {
     "BUILDING_COLOSSUS": "+1 route commerciale",
     "BUILDING_PETRA": "bonus sur les tuiles de désert",
     "BUILDING_BIG_BEN": "double le trésor",
+    "BUILDING_GREAT_LIGHTHOUSE": "+1 déplacement des unités navales et points de Grand Amiral",
+    "BUILDING_VENETIAN_ARSENAL": "chaque navire de guerre produit l'est en double",
 }
 
 

@@ -2,7 +2,7 @@
 
 ## 1. Transport
 - WebSocket, serveur dans le service moteur, sur `ws://127.0.0.1:8765` (écoute **uniquement** sur localhost ; port modifiable par configuration).
-- Messages JSON texte, un objet par trame. Chaque message contient `type` et `schema_version`.
+- Messages JSON texte, un objet par trame. Chaque message contient `type` et `schema_version` (2 pour les messages du serveur, 1 pour ceux du client).
 - À la connexion d'un client, le serveur renvoie immédiatement le dernier `status` et le dernier `recommendations` connus (s'il y en a).
 - Le serveur publie `status` et `recommendations` (§2, §3). Le client peut envoyer des commandes (§4).
 
@@ -16,7 +16,7 @@ Publié au démarrage, à chaque changement d'état et à chaque `game_state` re
 ```json
 {
   "type": "status",
-  "schema_version": 1,
+  "schema_version": 2,
   "state": "ok",
   "turn": 12,
   "game_id": "LEADER_TRAJAN_1849302",
@@ -36,7 +36,7 @@ Les listes sont recalculées après chaque `game_state` de type `game_loaded`, `
 ```json
 {
   "type": "recommendations",
-  "schema_version": 1,
+  "schema_version": 2,
   "game_id": "LEADER_TRAJAN_1849302",
   "turn": 12,
   "generated_at": "2026-10-29T20:15:03Z",
@@ -49,11 +49,6 @@ Les listes sont recalculées après chaque `game_state` de type `game_loaded`, `
     "culture_per_turn": 9.4,
     "faith": 10.0
   },
-  "milestones": [
-    { "turn": 1,  "label": "Capitale fondée",          "status": "done" },
-    { "turn": 12, "label": "Premier éclaireur produit", "status": "done" },
-    { "turn": 32, "label": "Équitation (Rush Cavalerie)", "status": "upcoming" }
-  ],
   "strategies": [
     {
       "id": "cavalry_rush",
@@ -80,8 +75,8 @@ Les listes sont recalculées après chaque `game_state` de type `game_loaded`, `
 ### Champs
 - `followed_strategy` : id de la stratégie suivie pour cette partie, ou `null`.
 - `snapshot` : n'est plus affiché par l'overlay (spec 03, panel 0 retiré), mais reste publié pour d'autres usages (conseiller LLM, outils).
-- `milestones[].status` : `done` | `upcoming`. Les tours sont exprimés dans la vitesse de la partie (déjà convertis par le moteur).
-- `strategies[].score` : nombre dans `[0.0, 1.0]`. `icon` est un identifiant d'icône parmi `horse`, `coin`, `flask`, `scroll`, `shield`, `dove`.
+- `milestones` : retiré en version 2 (2026-11-02), avec la page Jalons de l'overlay.
+- `strategies[].score` : nombre dans `[0.0, 1.0]`. `icon` est un identifiant d'icône parmi `horse`, `coin`, `flask`, `scroll`, `shield`, `dove`, `anchor`.
 - `actions[].category` : `research` | `civic` | `production` | `unit` | `policy` | `other`.
 - `actions[].priority` : entier entre 0 et 100 (100 = le plus urgent).
 - `actions[].source` : `rules` | `llm`.

@@ -14,7 +14,7 @@ Décrire les composants du système, leurs frontières et les canaux qui les rel
                                                                               │ écrit
                                                                               ▼
                                                                data/game_state.json (dernier état)
-                                                               data/raw/<game_id>/turn_XXXX.json (archive)
+                                                               data/raw/<game_id>/turn_XXXX.json (archive, si CIVOVL_ARCHIVE=1)
 ```
 
 ### Pourquoi ce découpage
@@ -56,9 +56,9 @@ Démarre le service moteur et l'overlay en un seul geste, sans console, depuis u
 | Étape | Contenu | Critère de sortie |
 |---|---|---|
 | **MVP 0** ✅ | Mod minimal (tour, rendements, recherche) → tailer → overlay affichant l'état brut | Le chiffre d'or affiché dans l'overlay change à chaque tour sans redémarrage (validé en jeu le 2026-10-29) |
-| **MVP 1** ✅ | Schéma complet (spec 01) + base de données du jeu + moteur de règles → panels Jalons et Actions | Au moins 5 règles actives et couvertes par des tests sur fixtures (6 règles ; validé en jeu sur 50 tours le 2026-10-29) |
+| **MVP 1** ✅ | Schéma complet (spec 01) + base de données du jeu + moteur de règles → panels Jalons (retiré le 2026-11-02) et Actions | Au moins 5 règles actives et couvertes par des tests sur fixtures (6 règles ; validé en jeu sur 50 tours le 2026-10-29) |
 | **MVP 2** | Scores de stratégie heuristiques + conseiller LLM optionnel → panel Stratégies | Scores reproductibles sur fixtures (heuristiques ✅ testées sur une vraie partie ; conseiller LLM non commencé) |
-| **Plus tard** | ML supervisé sur les parties archivées dans `data/raw/` | Jeu de données ≥ 20 parties |
+| **Plus tard** | ML supervisé sur les parties archivées dans `data/raw/` (archivage activé par `CIVOVL_ARCHIVE=1`) | Jeu de données ≥ 20 parties |
 
 ## 7. Tests
 - `tests/fixtures/` contient des `game_state` réels capturés en jeu (au moins un par phase : tour ≤ 10, 20-50, 50+). Au MVP 0, une fixture synthétique sert de point de départ ; elle sera remplacée par une capture réelle.

@@ -21,7 +21,6 @@ from PySide6.QtWidgets import (
 
 from ui.pages.actions_page import ActionsPage
 from ui.pages.cities_page import CitiesPage
-from ui.pages.milestones_page import MilestonesPage
 from ui.pages.settle_page import SettlePage
 from ui.pages.strategies_page import StrategiesPage
 from ui.settings import UiSettings
@@ -36,7 +35,6 @@ _STATUS_TEXT = {
 # Ordre des onglets (et de Ctrl+Alt+P).
 PAGES = (
     ("actions", "Actions"), ("strategies", "Stratégies"), ("cities", "Villes"), ("settle", "Colonisation"),
-    ("milestones", "Jalons"),
 )
 
 
@@ -128,7 +126,6 @@ class OverlayWindow(QWidget):
         self._cities_page.layout_limit_changed.connect(self._on_layout_limit_changed)
         self._cities_page.legend_toggled.connect(self._on_section_toggled)
         self._settle_page = SettlePage()
-        self._milestones_page = MilestonesPage()
 
         # Pages empilées « à la main » : une seule visible. Contrairement à QStackedWidget,
         # les pages masquées ne comptent pas dans la hauteur, et la fenêtre rétrécit.
@@ -137,7 +134,7 @@ class OverlayWindow(QWidget):
         pages_layout = QVBoxLayout(self._pages_frame)
         pages_layout.setContentsMargins(0, 4, 0, 0)
         self._pages: tuple[QWidget, ...] = (
-            self._actions_page, self._strategies_page, self._cities_page, self._settle_page, self._milestones_page,
+            self._actions_page, self._strategies_page, self._cities_page, self._settle_page,
         )
         for page in self._pages:
             pages_layout.addWidget(page)
@@ -301,7 +298,6 @@ class OverlayWindow(QWidget):
         self._strategies_page.update_page(message["strategies"], followed)
         self._cities_page.update_page(message.get("cities", []))
         self._settle_page.update_page(message.get("settle"))
-        self._milestones_page.update_page(message["milestones"])
         self._update_auto_page(message.get("game_id"), followed)
         self._refresh_status()
         self._schedule_fit_height()

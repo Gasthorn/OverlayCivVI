@@ -22,7 +22,7 @@ def test_early_macedon_favors_cavalry(game_db: GameDb, mvp1_state_dict: dict) ->
     result = score_strategies(state_from(mvp1_state_dict), game_db)
     assert [s["id"] for s in result] == [
         "cavalry_rush", "commercial_hub_rush", "science_campus",
-        "religious_victory", "culture_victory", "medieval_army",
+        "religious_victory", "naval_warfare", "culture_victory", "medieval_army",
     ]
     cavalry = result[0]
     assert cavalry["score"] == 0.53
@@ -84,8 +84,8 @@ def test_unique_cavalry_bonus(game_db: GameDb, mvp1_state_dict: dict) -> None:
 
 def test_strategies_match_contract(game_db: GameDb, mvp1_state_dict: dict) -> None:
     message = {
-        "type": "recommendations", "schema_version": 1, "turn": 1, "generated_at": "x",
-        "snapshot": {}, "milestones": [], "actions": [],
+        "type": "recommendations", "schema_version": 2, "turn": 1, "generated_at": "x",
+        "snapshot": {}, "actions": [],
         "strategies": score_strategies(state_from(mvp1_state_dict), game_db),
     }
     assert contracts.first_error("recommendations", message) is None
@@ -93,7 +93,7 @@ def test_strategies_match_contract(game_db: GameDb, mvp1_state_dict: dict) -> No
 
 def test_minimal_state_scores_without_error(game_db: GameDb, mvp0_state: dict) -> None:
     result = score_strategies(state_from(mvp0_state), game_db)
-    assert len(result) == 6
+    assert len(result) == 7
     assert all(0 <= s["score"] <= 1 for s in result)
 
 
@@ -135,3 +135,18 @@ def test_site_factor_uses_game_adjacency(game_db: GameDb) -> None:
     science = scores(data, game_db)["science_campus"]
     assert "Meilleur emplacement de Campus : +4 à Kwango" in science["factors"]
     assert not any("montagnes" in f for f in science["factors"])  # l'estimation n'est plus utilisée
+
+
+def test_naval_warfare_needs_coastal_cities(game_db: GameDb) -> None:
+    data = real_t050()
+    unknown = scores(data, game_db)["naval_warfare"]
+    assert unknown["score"] == 0.36  # côtes inconnues (export antérieur au champ) : pas de pénalité
+    for city in data["cities"]:
+        city["coastal"] = False
+    landlocked = scores(data, game_db)["naval_warfare"]
+    assert landlocked["factors"][0] == "Aucune ville côtière"
+    assert landlocked["score"] < unknown["score"] / 2
+    data["cities"][0]["coastal"] = data["cities"][2]["coastal"] = True
+    coastal = scores(data, game_db)["naval_warfare"]
+    assert landlocked["score"] < coastal["score"] < unknown["score"]
+    assert "2 villes côtières sur 6" in coastal["factors"]

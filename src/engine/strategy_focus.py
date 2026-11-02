@@ -35,6 +35,8 @@ class StrategyPlan:
     city_target: int = 6
     # Merveilles clés, par ordre de priorité (la première disponible est proposée, `wonders.py`).
     wonders: tuple[str, ...] = ()
+    # Quartier et unités réservés aux villes côtières (stratégie navale).
+    coastal_only: bool = False
 
 
 PLANS: dict[str, StrategyPlan] = {
@@ -66,14 +68,14 @@ PLANS: dict[str, StrategyPlan] = {
         wonders=("BUILDING_TERRACOTTA_ARMY", "BUILDING_ALHAMBRA", "BUILDING_STATUE_OF_ZEUS"),
     ),
     "commercial_hub_rush": StrategyPlan(
-        label="Rush Commercial",
+        label="Plateformes commerciales",
         key_steps=(("TECH_CURRENCY", "DISTRICT_COMMERCIAL_HUB"), ("TECH_BANKING", "BUILDING_BANK")),
         district="DISTRICT_COMMERCIAL_HUB",
         buildings=(("BUILDING_MARKET",), ("BUILDING_BANK",)),
         wonders=("BUILDING_COLOSSUS", "BUILDING_PETRA", "BUILDING_GREAT_ZIMBABWE", "BUILDING_BIG_BEN"),
     ),
     "science_campus": StrategyPlan(
-        label="Focus Scientifique",
+        label="Victoire scientifique",
         key_steps=(("TECH_WRITING", "DISTRICT_CAMPUS"), ("TECH_EDUCATION", "BUILDING_UNIVERSITY")),
         district="DISTRICT_CAMPUS",
         buildings=(("BUILDING_LIBRARY",), ("BUILDING_UNIVERSITY",)),
@@ -102,6 +104,22 @@ PLANS: dict[str, StrategyPlan] = {
             "BUILDING_STONEHENGE", "BUILDING_MAHABODHI_TEMPLE", "BUILDING_HAGIA_SOPHIA", "BUILDING_KOTOKU_IN",
             "BUILDING_MEENAKSHI_TEMPLE", "BUILDING_MONT_ST_MICHEL",
         ),
+    ),
+    "naval_warfare": StrategyPlan(
+        label="Bataille navale",
+        key_steps=(
+            ("TECH_SAILING", "UNIT_GALLEY"),
+            ("TECH_SHIPBUILDING", "UNIT_QUADRIREME"),
+            ("TECH_CELESTIAL_NAVIGATION", "DISTRICT_HARBOR"),
+            ("TECH_SQUARE_RIGGING", "UNIT_FRIGATE"),
+        ),
+        district="DISTRICT_HARBOR",
+        buildings=(("BUILDING_LIGHTHOUSE",), ("BUILDING_SHIPYARD",)),
+        units=("UNIT_FRIGATE", "UNIT_QUADRIREME", "UNIT_GALLEY"),
+        unit_target=4,
+        unit_label="navires de guerre",
+        wonders=("BUILDING_GREAT_LIGHTHOUSE", "BUILDING_COLOSSUS", "BUILDING_VENETIAN_ARSENAL"),
+        coastal_only=True,
     ),
 }
 
@@ -203,6 +221,7 @@ class _Focus:
         candidates = [
             c for c in self.state.cities
             if not variants & c.districts and not self._producing(c, self.plan.district)
+            and not (self.plan.coastal_only and c.coastal is False)
         ]
         name = self.db.name(district)
 
@@ -340,6 +359,8 @@ class _Focus:
         if not self.plan.units:
             return []
         if self.plan.units_require_religion and not self.state.religion:
+            return []
+        if self.plan.coastal_only and self.state.cities and all(c.coastal is False for c in self.state.cities):
             return []
         family = set().union(*(self.db.variants(u) for u in self.plan.units))
         owned = sum(u.type in family for u in self.state.units)

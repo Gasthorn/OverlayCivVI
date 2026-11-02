@@ -17,6 +17,8 @@ Pondérations (à garder synchronisées avec la spec et les tests) :
 - science_campus      : emplacement 0.30, Écriture 0.20, science 0.20, campus 0.20, unique 0.10
 - culture_victory     : culture 0.30, emplacement 0.20, Art dramatique 0.15, théâtres 0.15, merveilles 0.10, unique 0.10
 - religious_victory   : foi 0.25, religion fondée 0.20, emplacement 0.20, lieux saints 0.15, Astrologie 0.10, unique 0.10
+- naval_warfare       : emplacement 0.25, Navigation céleste 0.20, ressources marines 0.15, voisin 0.15,
+                        ports 0.10, unique 0.15 ; × villes côtières
 """
 
 from __future__ import annotations
@@ -32,6 +34,7 @@ from engine.strategy_focus import best_site
 from engine.text import de, plural, signed
 
 MULTIPLIER_FLOOR = 0.3
+WATER_TERRAINS = frozenset({"TERRAIN_COAST", "TERRAIN_OCEAN"})
 
 
 @dataclass(frozen=True)
@@ -297,11 +300,35 @@ def _religious_victory(ctx: _Context) -> list[Factor]:
     ]
 
 
+def _naval_warfare(ctx: _Context) -> list[Factor]:
+    coastal = sum(bool(c.coastal) for c in ctx.state.cities)
+    # `cities[].coastal` absent (export antérieur au champ) : on ne pénalise pas.
+    coast_known = any(c.coastal is not None for c in ctx.state.cities)
+    sea_resources = sum(t.resource is not None and t.terrain in WATER_TERRAINS for t in _workable_tiles(ctx))
+    coast_label = f"{plural(coastal, 'ville côtière', 'villes côtières')} sur {len(ctx.state.cities)}"
+    factors = [
+        _site_factor(ctx, "DISTRICT_HARBOR", 0.25, lambda: Factor(
+            0.25, coastal / ctx.cities, coast_label if coastal else "",
+        )),
+        _progress(ctx, "TECH_CELESTIAL_NAVIGATION", 0.20),
+        Factor(0.15, _clamp(sea_resources / (2 * ctx.cities)),
+               f"{plural(sea_resources, 'ressource marine', 'ressources marines')} près de vos villes"),
+        _neighbor_factor(ctx, 0.15),
+        _district_ratio(ctx, "DISTRICT_HARBOR", 0.10, "port"),
+        _unique_bonus(ctx, ("UNIT_GALLEY", "UNIT_QUADRIREME", "UNIT_FRIGATE", "UNIT_PRIVATEER", "DISTRICT_HARBOR"), 0.15),
+    ]
+    if coast_known:
+        # Sans côte, pas de flotte : condition indispensable.
+        factors.append(Factor(1.0, coastal / ctx.cities, coast_label if coastal else "Aucune ville côtière", multiplier=True))
+    return factors
+
+
 STRATEGIES: tuple[tuple[str, str, str, Callable[[_Context], list[Factor]]], ...] = (
     ("cavalry_rush", "Rush Cavalerie", "horse", _cavalry_rush),
     ("medieval_army", "Armée médiévale", "shield", _medieval_army),
-    ("commercial_hub_rush", "Rush Commercial", "coin", _commercial_hub_rush),
-    ("science_campus", "Focus Scientifique", "flask", _science_campus),
+    ("commercial_hub_rush", "Plateformes commerciales", "coin", _commercial_hub_rush),
+    ("science_campus", "Victoire scientifique", "flask", _science_campus),
     ("culture_victory", "Victoire culturelle", "scroll", _culture_victory),
     ("religious_victory", "Victoire religieuse", "dove", _religious_victory),
+    ("naval_warfare", "Bataille navale", "anchor", _naval_warfare),
 )
